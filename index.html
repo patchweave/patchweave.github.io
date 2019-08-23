@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>PatchWeave - Automated Patch Transplantation</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="css/resume.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+      <span class="d-block d-lg-none">Patch Weave</span>
+      <span class="d-none d-lg-block">
+        <h2 class="mb-5">PatchWeave</h2>
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#overview">Overview</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#workflow">Workflow</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#tool">Tool</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#subjects">Subjects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#evaluation">Evaluation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#test">Artifacts</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container-fluid p-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="overview">
+      <div class="w-100">
+        <h1 class="mb-0">Automated
+          <span class="text-primary">Patch</span> Transplantation
+        </h1>
+        <div class="subheading mb-5">Automated Program Repair, Software Transplantation, Program Transformation
+        </div>
+        <p class="lead mb-5">
+
+          Automated program repair is an emerging area which attempts to patch software errors and vulnerabilities.
+In this paper, we formulate and study a problem related to automated repair, namely automated patch transplantation. A
+patch for an error in a donor program is automatically adapted and inserted into a “similar” target program. We observe that
+despite standard procedures for vulnerability disclosures and publishing of patches, many un-patched occurrences remain
+unprotected in the wild. One of the main reasons is the fact that various implementations of the same functionality may exist and
+as a result published patches need to be modified and adapted.
+
+          <br><br>
+          In this paper, we therefore propose and implement a work-flow for transplanting patches. Our approach centers on identifying patch
+insertion points via symbolic execution and context information to adapt the patches. Since the publication of patches make
+an un-patched implementation more vulnerable, our proposed techniques should serve a long-standing need in practice.
+
+        </p>
+      </div>
+    </section>
+
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="workflow">
+      <div class="w-100">
+        <h2 class="mb-5">Approach</h2>
+
+        <div class="subheading mb-3">High Level Overview</div>
+        <img src="img/workflow.png">
+        <div class="subheading mb-3">Summary</div>
+        <p>
+          Given Pa and Pb, our approach first extracts the syntactic edits between Pa and Pb to obtain
+          a list of code segments (diffAB) for transplantation. Then,
+          our approach executes the test tF in Pa and Pc to analyze the
+          traces of the failing input. During the test executions, sanitizers
+          are used to detect errors (i.e., the address sanitizer detects
+          memory errors for identifying program locations that lead to
+          the error), whereas the dynamic profiler collects information
+          on statements executed. By combining symbolic analysis and
+          diff analysis, we identify a list of candidate insertion points
+          for each code segment in the patch. This is achieved through
+          partial path condition calculation and computation of partial
+          path condition dominance between Pa and Pc. After obtaining a list of candidate points for
+          insertion, we generate a variable mapping between Pb and
+          Pc with respect to the variables available at the insertion
+          point and the variables used in the patch segment, through
+          which we translate the patch to match the namespace of the
+          recipient program Pc.
+        </p>
+      </div>
+    </section>
+
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="tool">
+      <div class="w-100">
+        <h2 class="mb-5">Tool</h2>
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+        Implemented in Python and C, this github repository contains the source for PatchWeave and the scripts for the data sets,
+        including test suites, that we used for our experiments.
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+          <div class="resume-content">
+            <h3 class="mb-0">Dependencies</h3>
+            <br>
+            <ul>
+              <li>
+                LLVM - 3.4
+              <li>
+                LLVM - 7.0
+              <li>
+                Clang - 7.0
+              <li>
+                Klee - 1.2
+
+            </ul>
+
+          </div>
+
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+          <div class="resume-content">
+            <h3 class="mb-0">Source Files</h3>
+            <br>
+            <p>
+              will be made open source upon publication
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+          <div class="resume-content">
+            <h3 class="mb-0">Docker Image</h3>
+            <br>
+            Upon publication we will also provide the Dockerfile to build PatchWeave which includes the tool and all its dependencies bundled together. The Dockerfile
+            was tested with 18.09.7, build 2d0083d.
+        </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="subjects">
+      <div class="w-100">
+        <h2 class="mb-5">Evaluation Subjects</h2>
+        <div>
+          <div class="resume-content">
+            <table class="table">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">LOC</th>
+                <th scope="col">Version Range</th>
+                <th scope="col">Repository</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th scope="row">Jasper</th>
+                <td> JasPer is a collection
+                  of software for the
+                  coding and manipulation of images.  This software can handle image
+                  data in a variety of formats.</td>
+                <td>26k</td>
+                <td>1.900.1 - 2.0.14 </td>
+                <td>https://github.com/mdadams/jasper</td>
+              </tr>
+              <tr>
+                <th scope="row">Libsndfile</th>
+                <td>libsndfile is a C library for reading and writing files containing sampled audio data.</td>
+                <td>52k</td>
+                <td>1.0.25 - 1.0.28</td>
+                <td>https://github.com/erikd/libsndfile</td>
+              </tr>
+              <tr>
+                <th scope="row">OpenJpeg</th>
+                <td>OpenJPEG is an open-source JPEG 2000 codec written in C language. It has been developed in order to promote the use of JPEG 2000, a still-image compression standard from the Joint Photographic Experts Group (JPEG).</td>
+                <td>200k</td>
+                <td>1.0 - 2.3 </td>
+                <td>https://github.com/uclouvain/openjpeg</td>
+              </tr>
+
+              <tr>
+                <th scope="row">LibMing</th>
+                <td>
+                  Ming is a Flash (SWF) output library. It can be used from PHP, Perl, Ruby, Python, C, C++, Java, and probably more on the way.
+                  It comprises a lot of Flash functionality, including features of Flash 8.
+                </td>
+                <td>66k</td>
+                <td>0.4.3 - 0.4.8</td>
+                <td>https://github.com/libming/libming</td>
+              </tr>
+              <tr>
+                <th scope="row">LibWebP</th>
+                <td>library to encode and decode images in WebP format. This package
+                  contains the library that can be used in other programs to add WebP support,
+                  as well as the command line tools 'cwebp' and 'dwebp'.</td>
+                <td>67k</td>
+                <td>0.1.2 - 1.0.2</td>
+                <td>https://chromium.googlesource.com/webm/libwebp</td>
+              </tr>
+              <tr>
+                <th scope="row">LibTiff</th>
+                <td>This software provides support for the Tag Image File Format (TIFF), a widely used format for storing image data.
+               </td>
+                <td>70k</td>
+                <td>3.9.6 - 4.0.9</td>
+                <td>https://github.com/vadz/libtiff/</td>
+              </tr>
+
+
+              <tr>
+                <th scope="row">Libzip</th>
+                <td>This is libzip, a C library for reading, creating, and modifying zip archives. Files can be added from data buffers, files, or compressed data copied directly from other zip archives. Changes made without closing the archive can be reverted. Decryption and encryption of Winzip AES and decryption of legacy PKware encrypted files is supported.</td>
+                <td>13k</td>
+                <td>1.0.0 - 1.5.2</td>
+                <td>https://github.com/nih-at/libzip</td>
+              </tr>
+              <tr>
+                <th scope="row">WavPack</th>
+                <td>WavPack encode/decode library, command-line programs, and several plugins</td>
+                <td>33k</td>
+                <td>4.40.0 - 5.1.0</td>
+                <td>https://github.com/dbry/WavPack</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="evaluation">
+      <div class="w-100">
+        <h2 class="mb-5">Evaluation</h2>
+        <p>
+          We evaluate PatchWeave on five classes of errors, including integer overflow, division by zero,
+          null pointer dereference, heap buffer overflow and memory errors. We obtain our subjects from a public repository
+          that contains exploits and steps to reproduce vulnerabilities published in the CVE database. For donor and target
+          programs Pa and Pc, most evaluated programs are file processing programs. To evaluate the patch transplantation
+          ability of PatchWeave, we studied the transplantation of patches on one application program processing an input
+          format to another application program exercising similar functionality on the same input format.
+          <br><br>
+          Some of the results of our evaluation are given below, for full set please refer the paper.
+          <br>
+        </p>
+        <br>
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Donor</th>
+            <th scope="col">Target</th>
+            <th scope="col">Error Type</th>
+            <th scope="col">Error Input</th>
+            <th scope="col">Patch Commit</th>
+            <th scope="col">Patch Time</th>
+            <th scope="col">Patch Size</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Jasper-1.900.3</td>
+            <td>OpenJPEG-1.5.1</td>
+            <td>Divide by Zero</td>
+            <td>CVE-2016-8691</td>
+            <td>d8c2604</td>
+            <td>5 min</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>OpenJPEG-1.5.2</td>
+            <td>Jasper-1.900.2</td>
+            <td>Divide by Zero</td>
+            <td>CVE-2016-8691</td>
+            <td>e55d5e2</td>
+            <td>8 min</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Jasper-1.900.13</td>
+            <td>OpenJPEG-1.5.1</td>
+            <td>Integer Overflow</td>
+            <td>CVE-2016-9387</td>
+            <td>d91198a</td>
+            <td>7.5 min</td>
+            <td>27</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>OpenJPEG-1.5.2</td>
+            <td>Jasper-1.900.12</td>
+            <td>Integer Overflow</td>
+            <td>CVE-2016-9387</td>
+            <td>6e0162a</td>
+            <td>8.5 min</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>OpenJPEG-1.5.1</td>
+            <td>LibWebP-0.3.0</td>
+            <td>Signed Integer Overflow</td>
+            <td>CVE-2016-9262</td>
+            <td>6280b5ad</td>
+            <td>2.5 min</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>LibWebP-0.3.0</td>
+            <td>Jasper-1.900.3</td>
+            <td>Shift Overflow</td>
+            <td>CVE-2016-9830</td>
+            <td>7a650c6a</td>
+            <td>11 min</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <th scope="row">7</th>
+            <td>LibTiff-3.8.0</td>
+            <td>Jasper-1.900.8</td>
+            <td>Memory Write Error</td>
+            <td>CVE-2016-8884</td>
+            <td>50373d7d</td>
+            <td>26 min</td>
+            <td>8</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr class="m-0">
+
+    <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="test">
+      <div class="w-100">
+        <h2 class="mb-5">Artifacts</h2>
+        <p>
+          We list below the following artifacts for each experiment in our evaluation section of the paper; the developer patch
+          from the donor and the generated patch by our tool for the target. <br>
+        </p>
+
+        <div class="accordion" id="accordionExample">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  #1 Jasper-1.900.3 -> OpenJPEG-1.5.1 (Divide by Zero)
+                </button>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    +		if (siz->comps[i].hsamp == 0 || siz->comps[i].hsamp > 255) { <br>
+                    + 			jas_eprintf("invalid XRsiz value %d\n", siz->comps[i].hsamp); <br>
+                    + 			jas_free(siz->comps); <br>
+                    + 			return -1; <br>
+                    + 		} <br>
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <e>
+                  <code>
+                    + #include&lt;stdint.h\&gt; <br>
+                    +  if ((uint_fast8_t)image->comps[i].dx == 0 || (uint_fast8_t)image->comps[i].dx > 255) { <br>
+                    +      return; <br>
+                    +  } <br>
+                  </code>
+                  </pre>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  #2 OpenJPEG-1.5.2 -> Jasper-1.900.2 (Divide by Zero)
+                </button>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    +   /* prevent division by zero */ <br>
+                    +   if (!(cp->tdx * cp->tdy)) { <br>
+                    +     opj_event_msg(j2k->cinfo, EVT_ERROR, "JPWL: invalid tile size (tdx: %d, tdy: %d)\n", cp->tdx, cp->tdy); <br>
+                    +     return; <br>
+                    +   } <br>
+
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    +  if (!((int)cmpt->hstep * (int)cmpt->vstep)) { <br>
+                    + return -1; <br>
+                    +     } <br>
+
+                  </code>
+                </p>
+                </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading3">
+                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                  #3 Jasper-1.900.13 -> OpenJPEG-1.5.1 (Integer Overflow)
+                </button>
+            </div>
+            <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    + 	size_t size; <br>
+                    <br>
+                    - 	dec->numtiles = dec->numhtiles * dec->numvtiles; <br>
+                    + 	if (!jas_safe_size_mul(dec->numhtiles, dec->numvtiles, &size)) { <br>
+                    + 		return -1; <br>
+                    + 	} <br>
+                    +	dec->numtiles = size; <br>
+
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    + #include&lt;stdbool.h&gt; <br>
+                    + #define SIZE_MAX (18446744073709551615UL) <br>
+                    + #define true 1 <br>
+                    + #define false 0 <br>
+                    <br>
+                    + inline static bool jas_safe_size_mul(size_t x, size_t y, size_t *result) <br>
+                    + { <br>
+                    +	/* Check if overflow would occur */ <br>
+                    + <br>
+                    +	if (x && y > SIZE_MAX / x) { <br>
+                    + 		/* Overflow would occur. */ <br>
+                    + <br>
+                    + 		return false; <br>
+                    +  <br>
+                    + 	} <br>
+                    <br>
+                    +   *result = x * y; <br>
+                    + <br>
+                    + 	return true; <br>
+                    + <br>
+                    + }<br>
+                    <br>
+                    +  size_t size; <br>
+                    + <br>
+                    +  if (!jas_safe_size_mul(cp->tw, cp->th, &size)) { <br>
+                    +    return; <br>
+                    + 	} <br>
+
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingFour">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                #4 OpenJPEG-1.5.2 -> Jasper-1.900.12 (Integer Overflow)
+              </button>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    +  /* gdal_fuzzer_check_number_of_tiles.jp2 */ <br>
+                    +   if (cp->tw == 0 || cp->th == 0 || cp->tw > 65535 / cp->th) { <br>
+                    +     opj_event_msg(j2k->cinfo, EVT_ERROR, <br>
+                    +                             "Invalid number of tiles : %u x %u (maximum fixed by jpeg2000 norm is 65535 tiles)\n", <br>
+                    +                             cp->tw, cp->th); <br>
+                    +     return; <br>
+                    +   } <br>
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    +  if (dec->numhtiles == 0 || dec->numvtiles == 0 || dec->numhtiles > 65535 / dec->numvtiles) { <br>
+                    +      return -1; <br>
+                    +   } <br>
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header" id="heading6">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                #6 OpenJPEG-1.5.2 -> Jasper-1.900.30 (Null Pointer Dereference)
+              </button>
+            </div>
+            <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                      + 	if (box->length < 0) { <br>
+                      + 		opj_event_msg(cinfo, EVT_ERROR, "Integer overflow in box->length\n"); <br>
+                      + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value <br>
+                      + 	} <br>
+
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                      + #define OPJ_FALSE 0 <br>
+                      <br>
+                      +  if ((int)box->len < 0) { <br>
+                      + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value <br>
+                      + 	} <br>
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading7">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                #7 Jasper-1.900.3 -> OpenJPEG-1.3 (Divide by Zero)
+              </button>
+            </div>
+            <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    + 		if (siz->comps[i].vsamp == 0 || siz->comps[i].vsamp > 255) { <br>
+                    + 			jas_eprintf("invalid YRsiz value %d\n", siz->comps[i].vsamp); <br>
+                    + 			jas_free(siz->comps); <br>
+                    + 			return -1; <br>
+                    +		} <br>
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    + #include&lt;stdint.h&gt;                <br>
+                    +  if ((uint_fast8_t)image->comps[i].dy == 0 || (uint_fast8_t)image->comps[i].dy > 255) { <br>
+                    +     return; <br>
+                    +  } <br>
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading8">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                #8 OpenJPEG-1.4 -> Jasper-1.900.2 (Divide by Zero)
+              </button>
+            </div>
+            <div id="collapse8" class="collapse" aria-labelledby="heading8" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    + 	if ((image->x0<0)||(image->x1<0)||(image->y0<0)||(image->y1<0)) { <br>
+                    + 		opj_event_msg(j2k->cinfo, EVT_ERROR, <br>
+                    + 									"invalid image size (x0:%d, x1:%d, y0:%d, y1:%d)\n", <br>
+                    + 									image->x0,image->x1,image->y0,image->y1); <br>
+                    + 		return; <br>
+                    + 	} <br>
+
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    +  if (((int)siz->xoff<0)||((int)dec->xend<0)||((int)siz->yoff<0)||((int)dec->yend<0)) { <br>
+                    +      return -1; <br>
+                    + 	} <br>
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading9">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse9" aria-expanded="false" aria-controls="collapse9">
+                #9 Jasper-1.900.14 -> OpenJPEG-2.1.0 (Unsigned Integer Overflow)
+              </button>
+            </div>
+            <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    + 	if (siz->tilexoff >= siz->width || siz->tileyoff >= siz->height) { <br>
+                    + 		jas_eprintf("all tiles are outside the image area\n"); <br>
+                    + 		return -1; <br>
+                    + 	} <br>
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    +  if ((uint_fast32_t)l_cp->tx0 >= (uint_fast32_t)l_image->x1 || (uint_fast32_t)l_cp->ty0 >= (uint_fast32_t)l_image->y1) { <br>
+                    + 		return -1; <br>
+                    + 	} <br>
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading10">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse10" aria-expanded="false" aria-controls="collapse10">
+                #10 OpenJPEG-2.1.1 -> Jasper-1.900.13 (Unsigned Integer Overflow)
+              </button>
+            </div>
+            <div id="collapse10" class="collapse" aria-labelledby="heading10" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    +         /* testcase issue427-illegal-tile-offset.jp2 */ <br>
+                    +         l_tx1 = l_cp->tx0 + l_cp->tdx;  <br>
+                    +         if (l_tx1 < l_cp->tx0) { /* manage overflow */  <br>
+                    +                 l_tx1 = 0xFFFFFFFFU;  <br>
+                    +         }  <br>
+                    +         l_ty1 = l_cp->ty0 + l_cp->tdy;  <br>
+                    +         if (l_ty1 < l_cp->ty0) { /* manage overflow */  <br>
+                    +                 l_ty1 = 0xFFFFFFFFU;  <br>
+                    +         }  <br>
+                    +         if ((l_cp->tx0 > l_image->x0) || (l_cp->ty0 > l_image->y0) || (l_tx1 <= l_image->x0) || (l_ty1 <= l_image->y0) ) {  <br>
+                    +                 opj_event_msg(p_manager, EVT_ERROR, "Error with SIZ marker: illegal tile offset\n");  <br>
+                    +                 return OPJ_FALSE;  <br>
+                    +         }  <br>
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    + #define OPJ_FALSE 0 <br>
+                    + typedef uint32_t OPJ_UINT32; <br>
+                    + OPJ_UINT32 l_tmp, l_tx1, l_ty1; <br>
+                    <br>
+                    +  if (((OPJ_UINT32)dec->tilexoff > (OPJ_UINT32)siz->xoff) || ((OPJ_UINT32)dec->tileyoff > (OPJ_UINT32)siz->yoff) || (l_tx1 <= (OPJ_UINT32)siz->xoff) || (l_ty1 <= (OPJ_UINT32)siz->yoff) ) { <br>
+                    +                 return OPJ_FALSE; <br>
+                    +         } <br>
+                    <br>
+                    +  if (l_ty1 < (OPJ_UINT32)dec->tileyoff) { /* manage overflow */ <br>
+                    +                 l_ty1 = 0xFFFFFFFFU; <br>
+                    +         } <br>
+                    <br>
+                    +  l_ty1 = (OPJ_UINT32)dec->tileyoff + (OPJ_UINT32)dec->tileheight; <br>
+                    <br>
+                    +  if (l_tx1 < (OPJ_UINT32)dec->tilexoff) { /* manage overflow */ <br>
+                    +                l_tx1 = 0xFFFFFFFFU; <br>
+                    +         } <br>
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading11">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse11" aria-expanded="false" aria-controls="collapse11">
+                #11 OpenJPEG-1.5.1 -> LibWebP-0.3.0 (Signed Integer Overflow)
+              </button>
+            </div>
+            <div id="collapse11" class="collapse" aria-labelledby="heading11" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    + 	if (box->length < 0) { <br>
+                    + 		opj_event_msg(cinfo, EVT_ERROR, "Integer overflow in box->length\n"); <br>
+                    + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value <br>
+                    + 	} <br>
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    + #define OPJ_FALSE 0 <br>
+                    <br>
+                    +  if ((int)magic < 0) { <br>
+                    + <br>
+                    + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value <br>
+                    + 	} <br>
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading12">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
+                #12 Jasper-1.900.4-> LibWebP-0.2.0 (Shift Overflow)
+              </button>
+            </div>
+            <div id="collapse12" class="collapse" aria-labelledby="heading12" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    - 	magic = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3]; <br>
+                    <br>
+                    + 	magic = (JAS_CAST(uint_fast32_t, buf[0]) << 24) | <br>
+                    + 	  (JAS_CAST(uint_fast32_t, buf[1]) << 16) | <br>
+                    +	  (JAS_CAST(uint_fast32_t, buf[2]) << 8) | <br>
+                    + 	  buf[3]; <br>
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="heading13">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse13" aria-expanded="false" aria-controls="collapse13">
+                #13 LibWebP -> Jasper-1.900.3 (Shift Overflow)
+              </button>
+            </div>
+            <div id="collapse13" class="collapse" aria-labelledby="heading13" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+
+
+          <div class="card">
+            <div class="card-header" id="heading16">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
+                #16 Jasper-1.900.17 -> OpenJPEG-1.5.2 (Unsigned Integer Overflow)
+              </button>
+            </div>
+            <div id="collapse16" class="collapse" aria-labelledby="heading16" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    + 	if (siz->tilexoff > siz->xoff || siz->tilexoff + siz->tilewidth <= siz->xoff) {  <br>
+                    + 		jas_eprintf("XTOsiz not in permissible range\n"); <br>
+                    + 		goto error;  <br>
+                    + 	} <br>
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    + #include&lt;stdint.h&gt; <br>
+                    <br>
+                    +  if ((uint_fast32_t)cp->tx0 > (uint_fast32_t)image->x0 || (uint_fast32_t)cp->tx0 + (uint_fast32_t)cp->tdx <= (uint_fast32_t)image->x0) { <br>
+                    +       return; <br>
+                    + 	} <br>
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header" id="heading17">
+              <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapse17" aria-expanded="false" aria-controls="collapse17">
+                #17 LibTiff-3.8.0 -> Jasper-1.900.8 (Memory Write Error)
+              </button>
+            </div>
+            <div id="collapse17" class="collapse" aria-labelledby="heading17" data-parent="#accordionExample">
+              <div class="card-body">
+                <h4>Donor Patch</h4>
+                <p>
+                  <code>
+                    -                 size = ((width * info_hdr.iBitCount + 31) & ~31) / 8; <br>
+                    + 		/* XXX: Avoid integer overflow. We can calculate size in one <br>
+                    + 		 * step using <br>
+                    + 		 * <br>
+                    + 		 *   size = ((width * info_hdr.iBitCount + 31) & ~31) / 8 <br>
+                    + 		 * <br>
+                    + 		 * formulae, but we should check for overflow conditions <br>
+                    + 		 * during calculation. <br>
+                    + 		 */ <br>
+                    + 		size = width * info_hdr.iBitCount + 31; <br>
+                    + 		if (!width || !info_hdr.iBitCount <br>
+                    + 		    || (size - 31) / info_hdr.iBitCount != width ) <br>
+                    + 		{ <br>
+                    + 			TIFFError(infilename, <br>
+                    + 				  "Wrong image parameters; " <br>
+                    + 				  "can't allocate space for scanline buffer"); <br>
+                    +			goto bad3; <br>
+                    + 		} <br>
+
+                  </code>
+                </p>
+                <h4>Transplanted Patch</h4>
+                <p>
+                  <code>
+                    + typedef	unsigned int uint32;	<br>
+                    <br>
+                    +  uint32 offset, size; <br>
+                    <br>
+                    +  if (!(uint32)info->width || !info->depth <br>
+                    + 		    || (size - 31) / info->depth != (uint32)info->width ) <br>
+                    + 		{ <br>
+                    + <br>
+                    +             return -1; <br>
+                    + 		} <br>
+
+                  </code>
+                </p> </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/resume.min.js"></script>
+
+</body>
+
+</html>
