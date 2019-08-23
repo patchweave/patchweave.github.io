@@ -400,9 +400,9 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
                 <p>
                   <code>
                     +		if (siz->comps[i].hsamp == 0 || siz->comps[i].hsamp > 255) { <br>
-                    + 			jas_eprintf("invalid XRsiz value %d\n", siz->comps[i].hsamp); <br>
-                    + 			jas_free(siz->comps); <br>
-                    + 			return -1; <br>
+                    + 		<emsp>	jas_eprintf("invalid XRsiz value %d\n", siz->comps[i].hsamp); <br>
+                    + 		<emsp>	jas_free(siz->comps); <br>
+                    + 		<emsp>	return -1; <br>
                     + 		} <br>
                   </code>
                 </p>
