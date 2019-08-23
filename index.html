@@ -397,26 +397,29 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    +		if (siz->comps[i].hsamp == 0 || siz->comps[i].hsamp > 255) { <br>
-                    + 		<emsp>	jas_eprintf("invalid XRsiz value %d\n", siz->comps[i].hsamp); <br>
-                    + 		<emsp>	jas_free(siz->comps); <br>
-                    + 		<emsp>	return -1; <br>
-                    + 		} <br>
+
+                <pre>
+                  <code style="color:blue">
+    +   if (siz->comps[i].hsamp == 0 || siz->comps[i].hsamp > 255) {
+    +       jas_eprintf("invalid XRsiz value %d\n", siz->comps[i].hsamp);
+    +       jas_free(siz->comps);
+    +       return -1;
+    +   }
                   </code>
-                </p>
+                 </pre>
+
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <e>
-                  <code>
-                    + #include&lt;stdint.h\&gt; <br>
-                    +  if ((uint_fast8_t)image->comps[i].dx == 0 || (uint_fast8_t)image->comps[i].dx > 255) { <br>
-                    +      return; <br>
-                    +  } <br>
+
+                  <pre>
+                  <code style="color:green">
+    + #include&lt;stdint.h&gt;
+
+    +   if ((uint_fast8_t)image->comps[i].dx == 0 || (uint_fast8_t)image->comps[i].dx > 255) {
+    +       return;
+    +   }
                   </code>
                   </pre>
-                </p>
+
               </div>
             </div>
           </div>
@@ -429,25 +432,23 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    +   /* prevent division by zero */ <br>
-                    +   if (!(cp->tdx * cp->tdy)) { <br>
-                    +     opj_event_msg(j2k->cinfo, EVT_ERROR, "JPWL: invalid tile size (tdx: %d, tdy: %d)\n", cp->tdx, cp->tdy); <br>
-                    +     return; <br>
-                    +   } <br>
-
+                <pre>
+                  <code style="color:blue">
+    +   /* prevent division by zero */
+    +   if (!(cp->tdx * cp->tdy)) {
+    +     opj_event_msg(j2k->cinfo, EVT_ERROR, "JPWL: invalid tile size (tdx: %d, tdy: %d)\n", cp->tdx, cp->tdy);
+    +     return;
+    +   }
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    +  if (!((int)cmpt->hstep * (int)cmpt->vstep)) { <br>
-                    + return -1; <br>
-                    +     } <br>
-
+                <pre>
+                  <code style="color:green">
+    +  if (!((int)cmpt->hstep * (int)cmpt->vstep)) {
+    +     return -1;
+    +  }
                   </code>
-                </p>
+                </pre>
                 </div>
             </div>
           </div>
@@ -460,52 +461,49 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse3" class="collapse" aria-labelledby="heading3" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    + 	size_t size; <br>
-                    <br>
-                    - 	dec->numtiles = dec->numhtiles * dec->numvtiles; <br>
-                    + 	if (!jas_safe_size_mul(dec->numhtiles, dec->numvtiles, &size)) { <br>
-                    + 		return -1; <br>
-                    + 	} <br>
-                    +	dec->numtiles = size; <br>
+                <pre>
+                  <code style="color:blue">
+    + 	size_t size;
 
+    - 	dec->numtiles = dec->numhtiles * dec->numvtiles;
+    + 	if (!jas_safe_size_mul(dec->numhtiles, dec->numvtiles, &size)) {
+    + 		return -1;
+    + 	}
+    +	dec->numtiles = size;
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    + #include&lt;stdbool.h&gt; <br>
-                    + #define SIZE_MAX (18446744073709551615UL) <br>
-                    + #define true 1 <br>
-                    + #define false 0 <br>
-                    <br>
-                    + inline static bool jas_safe_size_mul(size_t x, size_t y, size_t *result) <br>
-                    + { <br>
-                    +	/* Check if overflow would occur */ <br>
-                    + <br>
-                    +	if (x && y > SIZE_MAX / x) { <br>
-                    + 		/* Overflow would occur. */ <br>
-                    + <br>
-                    + 		return false; <br>
-                    +  <br>
-                    + 	} <br>
-                    <br>
-                    +   *result = x * y; <br>
-                    + <br>
-                    + 	return true; <br>
-                    + <br>
-                    + }<br>
-                    <br>
-                    +  size_t size; <br>
-                    + <br>
-                    +  if (!jas_safe_size_mul(cp->tw, cp->th, &size)) { <br>
-                    +    return; <br>
-                    + 	} <br>
+                <pre>
+                  <code style="color:green">
+    + #include&lt;stdbool.h&gt;
+    + #define SIZE_MAX (18446744073709551615UL)
+    + #define true 1
+    + #define false 0
 
+    + inline static bool jas_safe_size_mul(size_t x, size_t y, size_t *result)
+    + {
+    +	/* Check if overflow would occur */
+    +
+    +	if (x && y > SIZE_MAX / x) {
+    + 		/* Overflow would occur. */
+    +
+    + 		return false;
+    +
+    + 	}
 
+    +   *result = x * y;
+    +
+    + 	return true;
+    +
+    + }
+
+    +  size_t size;
+    +
+    +  if (!jas_safe_size_mul(cp->tw, cp->th, &size)) {
+    +    return;
+    + 	}
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
           <div class="card">
@@ -517,26 +515,25 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    +  /* gdal_fuzzer_check_number_of_tiles.jp2 */ <br>
-                    +   if (cp->tw == 0 || cp->th == 0 || cp->tw > 65535 / cp->th) { <br>
-                    +     opj_event_msg(j2k->cinfo, EVT_ERROR, <br>
-                    +                             "Invalid number of tiles : %u x %u (maximum fixed by jpeg2000 norm is 65535 tiles)\n", <br>
-                    +                             cp->tw, cp->th); <br>
-                    +     return; <br>
-                    +   } <br>
+                <pre>
+                  <code style="color:blue">
+    +  /* gdal_fuzzer_check_number_of_tiles.jp2 */
+    +   if (cp->tw == 0 || cp->th == 0 || cp->tw > 65535 / cp->th) {
+    +     opj_event_msg(j2k->cinfo, EVT_ERROR,
+    +                   "Invalid number of tiles : %u x %u (maximum fixed by jpeg2000 norm is 65535 tiles)\n",
+    +                    cp->tw, cp->th);
+    +     return;
+    +   }
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    +  if (dec->numhtiles == 0 || dec->numvtiles == 0 || dec->numhtiles > 65535 / dec->numvtiles) { <br>
-                    +      return -1; <br>
-                    +   } <br>
-
+                <pre>
+                  <code style="color:green">
+    +  if (dec->numhtiles == 0 || dec->numvtiles == 0 || dec->numhtiles > 65535 / dec->numvtiles) {
+    +      return -1;
+    +  }
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
 
@@ -549,25 +546,24 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse6" class="collapse" aria-labelledby="heading6" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                      + 	if (box->length < 0) { <br>
-                      + 		opj_event_msg(cinfo, EVT_ERROR, "Integer overflow in box->length\n"); <br>
-                      + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value <br>
-                      + 	} <br>
-
+                <pre>
+                  <code style="color:blue">
+    + 	if (box->length < 0) {
+    + 		opj_event_msg(cinfo, EVT_ERROR, "Integer overflow in box->length\n");
+    + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value
+    + 	}
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                      + #define OPJ_FALSE 0 <br>
-                      <br>
-                      +  if ((int)box->len < 0) { <br>
-                      + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value <br>
-                      + 	} <br>
+                <pre>
+                  <code style="color:green">
+    + #define OPJ_FALSE 0
+
+    +  if ((int)box->len < 0) {
+    + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value
+    + 	}
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
           <div class="card">
@@ -579,25 +575,24 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse7" class="collapse" aria-labelledby="heading7" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    + 		if (siz->comps[i].vsamp == 0 || siz->comps[i].vsamp > 255) { <br>
-                    + 			jas_eprintf("invalid YRsiz value %d\n", siz->comps[i].vsamp); <br>
-                    + 			jas_free(siz->comps); <br>
-                    + 			return -1; <br>
-                    +		} <br>
+                <pre>
+                  <code style="color:blue">
+    + 		if (siz->comps[i].vsamp == 0 || siz->comps[i].vsamp > 255) {
+    + 			jas_eprintf("invalid YRsiz value %d\n", siz->comps[i].vsamp);
+    + 			jas_free(siz->comps);
+    + 			return -1;
+    +		}
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    + #include&lt;stdint.h&gt;                <br>
-                    +  if ((uint_fast8_t)image->comps[i].dy == 0 || (uint_fast8_t)image->comps[i].dy > 255) { <br>
-                    +     return; <br>
-                    +  } <br>
-
+                <pre>
+                  <code style="color:green">
+    + #include&lt;stdint.h&gt;
+    +  if ((uint_fast8_t)image->comps[i].dy == 0 || (uint_fast8_t)image->comps[i].dy > 255) {
+    +     return;
+    +  }
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
           <div class="card">
@@ -609,26 +604,24 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse8" class="collapse" aria-labelledby="heading8" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    + 	if ((image->x0<0)||(image->x1<0)||(image->y0<0)||(image->y1<0)) { <br>
-                    + 		opj_event_msg(j2k->cinfo, EVT_ERROR, <br>
-                    + 									"invalid image size (x0:%d, x1:%d, y0:%d, y1:%d)\n", <br>
-                    + 									image->x0,image->x1,image->y0,image->y1); <br>
-                    + 		return; <br>
-                    + 	} <br>
-
+                <pre>
+                  <code style="color:blue">
+    + 	if ((image->x0<0)||(image->x1<0)||(image->y0<0)||(image->y1<0)) {
+    + 		opj_event_msg(j2k->cinfo, EVT_ERROR,
+    + 						"invalid image size (x0:%d, x1:%d, y0:%d, y1:%d)\n",
+    + 						image->x0,image->x1,image->y0,image->y1);
+    + 		return;
+    + 	}
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    +  if (((int)siz->xoff<0)||((int)dec->xend<0)||((int)siz->yoff<0)||((int)dec->yend<0)) { <br>
-                    +      return -1; <br>
-                    + 	} <br>
-
+                <pre>
+                  <code style="color:green">
+    +  if (((int)siz->xoff<0)||((int)dec->xend<0)||((int)siz->yoff<0)||((int)dec->yend<0)) {
+    +      return -1;
+    +  }
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
           <div class="card">
@@ -640,23 +633,22 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse9" class="collapse" aria-labelledby="heading9" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    + 	if (siz->tilexoff >= siz->width || siz->tileyoff >= siz->height) { <br>
-                    + 		jas_eprintf("all tiles are outside the image area\n"); <br>
-                    + 		return -1; <br>
-                    + 	} <br>
+                <pre>
+                  <code style="color:blue">
+    + 	if (siz->tilexoff >= siz->width || siz->tileyoff >= siz->height) {
+    + 		jas_eprintf("all tiles are outside the image area\n");
+    + 		return -1;
+    + 	}
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    +  if ((uint_fast32_t)l_cp->tx0 >= (uint_fast32_t)l_image->x1 || (uint_fast32_t)l_cp->ty0 >= (uint_fast32_t)l_image->y1) { <br>
-                    + 		return -1; <br>
-                    + 	} <br>
-
+                <pre>
+                  <code style="color:green">
+    +  if ((uint_fast32_t)l_cp->tx0 >= (uint_fast32_t)l_image->x1 || (uint_fast32_t)l_cp->ty0 >= (uint_fast32_t)l_image->y1) {
+    + 		return -1;
+    +  }
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
           <div class="card">
@@ -668,46 +660,45 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse10" class="collapse" aria-labelledby="heading10" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    +         /* testcase issue427-illegal-tile-offset.jp2 */ <br>
-                    +         l_tx1 = l_cp->tx0 + l_cp->tdx;  <br>
-                    +         if (l_tx1 < l_cp->tx0) { /* manage overflow */  <br>
-                    +                 l_tx1 = 0xFFFFFFFFU;  <br>
-                    +         }  <br>
-                    +         l_ty1 = l_cp->ty0 + l_cp->tdy;  <br>
-                    +         if (l_ty1 < l_cp->ty0) { /* manage overflow */  <br>
-                    +                 l_ty1 = 0xFFFFFFFFU;  <br>
-                    +         }  <br>
-                    +         if ((l_cp->tx0 > l_image->x0) || (l_cp->ty0 > l_image->y0) || (l_tx1 <= l_image->x0) || (l_ty1 <= l_image->y0) ) {  <br>
-                    +                 opj_event_msg(p_manager, EVT_ERROR, "Error with SIZ marker: illegal tile offset\n");  <br>
-                    +                 return OPJ_FALSE;  <br>
-                    +         }  <br>
+                <pre>
+                  <code style="color:blue">
+    +         /* testcase issue427-illegal-tile-offset.jp2 */
+    +         l_tx1 = l_cp->tx0 + l_cp->tdx;
+    +         if (l_tx1 < l_cp->tx0) { /* manage overflow */
+    +                 l_tx1 = 0xFFFFFFFFU;
+    +         }
+    +         l_ty1 = l_cp->ty0 + l_cp->tdy;
+    +         if (l_ty1 < l_cp->ty0) { /* manage overflow */
+    +                 l_ty1 = 0xFFFFFFFFU;
+    +         }
+    +         if ((l_cp->tx0 > l_image->x0) || (l_cp->ty0 > l_image->y0) || (l_tx1 <= l_image->x0) || (l_ty1 <= l_image->y0) ) {
+    +                 opj_event_msg(p_manager, EVT_ERROR, "Error with SIZ marker: illegal tile offset\n");
+    +                 return OPJ_FALSE;
+    +         }
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    + #define OPJ_FALSE 0 <br>
-                    + typedef uint32_t OPJ_UINT32; <br>
-                    + OPJ_UINT32 l_tmp, l_tx1, l_ty1; <br>
-                    <br>
-                    +  if (((OPJ_UINT32)dec->tilexoff > (OPJ_UINT32)siz->xoff) || ((OPJ_UINT32)dec->tileyoff > (OPJ_UINT32)siz->yoff) || (l_tx1 <= (OPJ_UINT32)siz->xoff) || (l_ty1 <= (OPJ_UINT32)siz->yoff) ) { <br>
-                    +                 return OPJ_FALSE; <br>
-                    +         } <br>
-                    <br>
-                    +  if (l_ty1 < (OPJ_UINT32)dec->tileyoff) { /* manage overflow */ <br>
-                    +                 l_ty1 = 0xFFFFFFFFU; <br>
-                    +         } <br>
-                    <br>
-                    +  l_ty1 = (OPJ_UINT32)dec->tileyoff + (OPJ_UINT32)dec->tileheight; <br>
-                    <br>
-                    +  if (l_tx1 < (OPJ_UINT32)dec->tilexoff) { /* manage overflow */ <br>
-                    +                l_tx1 = 0xFFFFFFFFU; <br>
-                    +         } <br>
+                <pre>
+                  <code style="color:green">
+    + #define OPJ_FALSE 0
+    + typedef uint32_t OPJ_UINT32;
+    + OPJ_UINT32 l_tmp, l_tx1, l_ty1;
 
+    +  if (((OPJ_UINT32)dec->tilexoff > (OPJ_UINT32)siz->xoff) || ((OPJ_UINT32)dec->tileyoff > (OPJ_UINT32)siz->yoff) || (l_tx1 <= (OPJ_UINT32)siz->xoff) || (l_ty1 <= (OPJ_UINT32)siz->yoff) ) {
+    +     return OPJ_FALSE;
+    +  }
+
+    +  if (l_ty1 < (OPJ_UINT32)dec->tileyoff) { /* manage overflow */
+    +     l_ty1 = 0xFFFFFFFFU;
+    +  }
+
+    +  l_ty1 = (OPJ_UINT32)dec->tileyoff + (OPJ_UINT32)dec->tileheight;
+
+    +  if (l_tx1 < (OPJ_UINT32)dec->tilexoff) { /* manage overflow */
+    +     l_tx1 = 0xFFFFFFFFU;
+    +   }
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
           <div class="card">
@@ -719,25 +710,24 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse11" class="collapse" aria-labelledby="heading11" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    + 	if (box->length < 0) { <br>
-                    + 		opj_event_msg(cinfo, EVT_ERROR, "Integer overflow in box->length\n"); <br>
-                    + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value <br>
-                    + 	} <br>
+                <pre>
+                  <code style="color:blue">
+    + 	if (box->length < 0) {
+    + 		opj_event_msg(cinfo, EVT_ERROR, "Integer overflow in box->length\n");
+    + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value
+    + 	}
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    + #define OPJ_FALSE 0 <br>
-                    <br>
-                    +  if ((int)magic < 0) { <br>
-                    + <br>
-                    + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value <br>
-                    + 	} <br>
+                <pre>
+                  <code style="color:green">
+    + #define OPJ_FALSE 0
+
+    +  if ((int)magic < 0) {
+    + 		return OPJ_FALSE; // TODO: actually check jp2_read_boxhdr's return value
+    + 	}
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
           <div class="card">
@@ -749,22 +739,27 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse12" class="collapse" aria-labelledby="heading12" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    - 	magic = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3]; <br>
-                    <br>
-                    + 	magic = (JAS_CAST(uint_fast32_t, buf[0]) << 24) | <br>
-                    + 	  (JAS_CAST(uint_fast32_t, buf[1]) << 16) | <br>
-                    +	  (JAS_CAST(uint_fast32_t, buf[2]) << 8) | <br>
-                    + 	  buf[3]; <br>
+                <pre>
+                  <code style="color:blue">
+    - 	magic = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];
+    + 	magic = (JAS_CAST(uint_fast32_t, buf[0]) << 24) |
+    + 	  (JAS_CAST(uint_fast32_t, buf[1]) << 16) |
+    +	  (JAS_CAST(uint_fast32_t, buf[2]) << 8) |
+    + 	  buf[3];
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
+                <pre>
+                  <code style="color:green">
+    +   #define JAS_CAST(t,e) ((t) (e))
 
+    - 	magic = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];
+    + 	magic = (JAS_CAST(uint_fast32_t, buf[0]) << 24) |
+    + 	  (JAS_CAST(uint_fast32_t, buf[1]) << 16) |
+    +	  (JAS_CAST(uint_fast32_t, buf[2]) << 8) |
+    + 	  buf[3];
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
           <div class="card">
@@ -776,17 +771,17 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse13" class="collapse" aria-labelledby="heading13" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
+                <pre>
+                  <code style="color:blue">
 
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
+                <pre>
+                  <code style="color:green">
 
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
 
@@ -800,25 +795,24 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse16" class="collapse" aria-labelledby="heading16" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    + 	if (siz->tilexoff > siz->xoff || siz->tilexoff + siz->tilewidth <= siz->xoff) {  <br>
-                    + 		jas_eprintf("XTOsiz not in permissible range\n"); <br>
-                    + 		goto error;  <br>
-                    + 	} <br>
+                <pre>
+                  <code style="color:blue">
+    + 	if (siz->tilexoff > siz->xoff || siz->tilexoff + siz->tilewidth <= siz->xoff) {
+    + 		jas_eprintf("XTOsiz not in permissible range\n");
+    + 		goto error;
+    + 	}
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    + #include&lt;stdint.h&gt; <br>
-                    <br>
-                    +  if ((uint_fast32_t)cp->tx0 > (uint_fast32_t)image->x0 || (uint_fast32_t)cp->tx0 + (uint_fast32_t)cp->tdx <= (uint_fast32_t)image->x0) { <br>
-                    +       return; <br>
-                    + 	} <br>
+                <pre>
+                  <code style="color:green">
+    + #include&lt;stdint.h&gt;
 
+    +  if ((uint_fast32_t)cp->tx0 > (uint_fast32_t)image->x0 || (uint_fast32_t)cp->tx0 + (uint_fast32_t)cp->tdx <= (uint_fast32_t)image->x0) {
+    +       return;
+    + 	}
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
 
@@ -831,45 +825,41 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <div id="collapse17" class="collapse" aria-labelledby="heading17" data-parent="#accordionExample">
               <div class="card-body">
                 <h4>Donor Patch</h4>
-                <p>
-                  <code>
-                    -                 size = ((width * info_hdr.iBitCount + 31) & ~31) / 8; <br>
-                    + 		/* XXX: Avoid integer overflow. We can calculate size in one <br>
-                    + 		 * step using <br>
-                    + 		 * <br>
-                    + 		 *   size = ((width * info_hdr.iBitCount + 31) & ~31) / 8 <br>
-                    + 		 * <br>
-                    + 		 * formulae, but we should check for overflow conditions <br>
-                    + 		 * during calculation. <br>
-                    + 		 */ <br>
-                    + 		size = width * info_hdr.iBitCount + 31; <br>
-                    + 		if (!width || !info_hdr.iBitCount <br>
-                    + 		    || (size - 31) / info_hdr.iBitCount != width ) <br>
-                    + 		{ <br>
-                    + 			TIFFError(infilename, <br>
-                    + 				  "Wrong image parameters; " <br>
-                    + 				  "can't allocate space for scanline buffer"); <br>
-                    +			goto bad3; <br>
-                    + 		} <br>
+                <pre>
+                  <code style="color:blue">
+    -        size = ((width * info_hdr.iBitCount + 31) & ~31) / 8;
+    + 		/* XXX: Avoid integer overflow. We can calculate size in one
+    + 		 * step using
+    + 		 *
+    + 		 *   size = ((width * info_hdr.iBitCount + 31) & ~31) / 8
+    + 		 *
+    + 		 * formulae, but we should check for overflow conditions
+    + 		 * during calculation.
+    + 		 */
+    + 		size = width * info_hdr.iBitCount + 31;
+    + 		if (!width || !info_hdr.iBitCount
+    + 		    || (size - 31) / info_hdr.iBitCount != width )
+    + 		{
+    + 			TIFFError(infilename,
+    + 				  "Wrong image parameters; "
+    + 				  "can't allocate space for scanline buffer");
+    +			goto bad3;
+    + 		}
 
                   </code>
-                </p>
+                </pre>
                 <h4>Transplanted Patch</h4>
-                <p>
-                  <code>
-                    + typedef	unsigned int uint32;	<br>
-                    <br>
-                    +  uint32 offset, size; <br>
-                    <br>
-                    +  if (!(uint32)info->width || !info->depth <br>
-                    + 		    || (size - 31) / info->depth != (uint32)info->width ) <br>
-                    + 		{ <br>
-                    + <br>
-                    +             return -1; <br>
-                    + 		} <br>
+                <pre>
+                  <code style="color:green">
+    +   typedef	unsigned int uint32
+    +   uint32 offset, size;
 
+    +   if (!(uint32)info->width || !info->depth || (size - 31) / info->depth != (uint32)info->width)
+    +   {
+    +       return -1;
+    +   }
                   </code>
-                </p> </div>
+                </pre> </div>
             </div>
           </div>
 
