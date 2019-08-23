@@ -773,13 +773,15 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
                 <h4>Donor Patch</h4>
                 <pre>
                   <code style="color:blue">
-
+    -  magic = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];
+    +  magic = ((uint32_t)buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];
                   </code>
                 </pre>
                 <h4>Transplanted Patch</h4>
                 <pre>
                   <code style="color:green">
-
+    -  magic = (buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];
+    +  magic = ((uint32_t)buf[0] << 24) | (buf[1] << 16) | (buf[2] << 8) | buf[3];
                   </code>
                 </pre> </div>
             </div>
