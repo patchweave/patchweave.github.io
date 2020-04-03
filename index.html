@@ -55,7 +55,9 @@
         <li class="nav-item">
           <a class="nav-link js-scroll-trigger" href="#test">Artifacts</a>
         </li>
-
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="#apr">APR Comparison</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -94,7 +96,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
         <h2 class="mb-5">Approach</h2>
 
         <div class="subheading mb-3">High Level Overview</div>
-        <img src="img/workflow.jpg">
+        <img src="img/workflow.jpg" style="width: 100%">
         <div class="subheading mb-3">Summary</div>
         <p>
           Given Pa and Pb, our approach first extracts the syntactic edits between Pa and Pb to obtain
@@ -123,7 +125,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
     <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="tool">
       <div class="w-100">
         <h2 class="mb-5">Tool</h2>
-        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
+        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5" style="margin-top: -50px">
         Implemented in Python and C, this github repository contains the source for PatchWeave and the scripts for the data sets,
         including test suites, that we used for our experiments.
         </div>
@@ -141,7 +143,8 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
                 Clang - 7.0
               <li>
                 Klee - 1.2
-
+              <li>
+                Python - 2.7
             </ul>
 
           </div>
@@ -164,7 +167,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
           <div class="resume-content">
             <h3 class="mb-0">Docker Image</h3>
             <br>
-              <a href="https://hub.docker.com/repository/docker/rshariffdeen/patchweave">Dockerhub Repository</a>
+              <a href="https://hub.docker.com/repository/docker/rshariffdeen/patchweave">Dockerhub Repository</a><br>
               Docker image only with the tool can be obtained using the tag <b>latest</b><br>
               Docker image with scripts to reproduce the experiments can be obtained using the tag <b>experiments</b>
         </div>
@@ -384,7 +387,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
         <h2 class="mb-5">Artifacts</h2>
         <p>
           We list below the following artifacts for each experiment in our evaluation section of the paper; the developer patch
-          from the donor and the generated patch by our tool for the target. <br>
+          from the donor and the generated patch by our tool for the target. We also include the patch generated (if any) by F1X and Prophet for comparison purposes. <br>
         </p>
 
         <div class="accordion" id="accordionExample">
@@ -868,6 +871,231 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
 
         </div>
 
+
+      </div>
+    </section>
+ <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="apr">
+      <div class="w-100">
+        <h2 class="mb-5">Patch Comparison</h2>
+        <p>
+          We list below the following comparison with APR, for each experiment in our evaluation section of the paper; the transplanted patch
+          F1X generated patch and Prophet generated patch for comparison purposes. <br>
+        </p>
+
+       <div class="resume-content">
+            <table class="table">
+              <thead class="thead-dark">
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col" width="33%">Transplanted Patch</th>
+                <th scope="col" width="33%">F1x Patch</th>
+                <th scope="col" width="33%">Prophet Patch</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>
+                    <pre>
++ #include<stdint.h>
++   if (image->comps[i].dx == 0 ||
+        image->comps[i].dx > 255) {
++       return;
++   }
+                    </pre>
+                </td>
+                <td><pre>
+< 	cio_read(cio, 2);
+> 	if (0) cio_read(cio, 2);
+                </pre>
+                </td>
+                <td>
+                    <pre>
+< if (e->id == id) {
+<   break;
+> //prophet generated patch
+> if ((e->id == id) && !(1)) {
+>   break;
+
+                    </pre>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>
+                    <pre>
++  if (!(cmpt->hstep * cmpt->vstep)) {
++     return -1;
++  }
+                    </pre>
+                </td>
+                <td>
+                    <pre>
+
+                    </pre>
+                </td>
+                <td>
+                    <pre>
+
+                    </pre>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>
+                    <pre>
++ #include<stdbool.h>
++ #define SIZE_MAX (18446744073709551615UL)
++ #define true 1
++ #define false 0
+
++ inline static bool jas_safe_size_mul
+  (size_t x, size_t y, size_t *result)
++ {
++	if (x && y > SIZE_MAX / x) {
++ 		return false;
++ 	}
+
++   *result = x * y;
++ 	return true;
++ }
+
++  size_t size;
++  if (!jas_safe_size_mul(cp->tw,
+                        cp->th,
+                        &size)) {
++    return;
++  }
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+              </tr>
+
+              <tr>
+                <th scope="row">4</th>
+                <td>
+                    <pre>
++  if (dec->numhtiles == 0 ||
+       dec->numvtiles == 0 ||
+       dec->numhtiles > 65535 / dec->numvtiles) {
++      return -1;
++  }
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+                <td>
+                    <pre>
+
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">6</th>
+              <td>
+                    <pre>
++ #define OPJ_FALSE 0
+
++  if ((int)box->len < 0) {
++ 	return OPJ_FALSE;
++ }
+
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+
+              </tr>
+
+
+              <tr>
+                <th scope="row">7</th>
+                <td>
+                    <pre>
++ #include<stdint.h>
++  if (image->comps[i].dy == 0 ||
+       image->comps[i].dy > 255) {
++     return;
++  }
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+
+              </tr>
+              <tr>
+                <th scope="row">8</th>
+            <td>
+                    <pre>
++  if ((siz->xoff<0)||
+       (dec->xend<0)||
+       (siz->yoff<0)||
+       (dec->yend<0)) {
++      return -1;
++  }
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+                  <td>
+                    <pre>
+
+                    </pre>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
 
       </div>
     </section>
