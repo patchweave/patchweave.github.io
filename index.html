@@ -297,9 +297,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <th scope="col">Target</th>
             <th scope="col">Error Type</th>
             <th scope="col">Error Input</th>
-            <th scope="col">Patch Commit</th>
             <th scope="col">Patch Time</th>
-            <th scope="col">Patch Size</th>
           </tr>
           </thead>
           <tbody>
@@ -309,9 +307,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <td>OpenJPEG-1.5.1</td>
             <td>Divide by Zero</td>
             <td>CVE-2016-8691</td>
-            <td>d8c2604</td>
             <td>5 min</td>
-            <td>3</td>
           </tr>
           <tr>
             <th scope="row">2</th>
@@ -319,9 +315,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <td>Jasper-1.900.2</td>
             <td>Divide by Zero</td>
             <td>CVE-2016-8691</td>
-            <td>e55d5e2</td>
             <td>8 min</td>
-            <td>3</td>
           </tr>
           <tr>
             <th scope="row">3</th>
@@ -329,9 +323,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <td>OpenJPEG-1.5.1</td>
             <td>Integer Overflow</td>
             <td>CVE-2016-9387</td>
-            <td>d91198a</td>
             <td>7.5 min</td>
-            <td>27</td>
           </tr>
           <tr>
             <th scope="row">4</th>
@@ -339,39 +331,172 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <td>Jasper-1.900.12</td>
             <td>Integer Overflow</td>
             <td>CVE-2016-9387</td>
-            <td>6e0162a</td>
             <td>8.5 min</td>
-            <td>3</td>
           </tr>
+
           <tr>
             <th scope="row">5</th>
+            <td>Jasper-2.0.13</td>
+            <td>OpenJPEG-1.5.1</td>
+            <td>Null Pointer Dereference</td>
+            <td>CVE-2017-6850</td>
+            <td>N/A</td>
+          </tr>
+
+          <tr>
+            <th scope="row">6</th>
+            <td>OpenJPEG-1.5.2</td>
+            <td>Jasper-1.900.30</td>
+            <td>Null Pointer Dereference</td>
+            <td>CVE-2016-9387</td>
+            <td>15 min</td>
+          </tr>
+
+          <tr>
+            <th scope="row">7</th>
+            <td>Jasper-1.900.3</td>
+            <td>OpenJPEG-1.3</td>
+            <td>Divide by Zero</td>
+            <td>CVE-2016-8692</td>
+            <td>3.5 min</td>
+          </tr>
+          <tr>
+            <th scope="row">8</th>
+            <td>OpenJPEG-1.4</td>
+            <td>Jasper-1.900.2</td>
+            <td>Divide by Zero</td>
+            <td>CVE-2016-8692</td>
+            <td>5.5 min</td>
+          </tr>
+
+          <tr>
+            <th scope="row">9</th>
+            <td>Jasper-1.900.14</td>
+            <td>OpenJPEG-2.1.0</td>
+            <td>Unsigned Integer Overflow</td>
+            <td>CVE-2016-9387</td>
+            <td>6 min</td>
+          </tr>
+          <tr>
+            <th scope="row">10</th>
+            <td>OpenJPEG-2.1.1</td>
+            <td>Jasper-1.900.13</td>
+            <td>Unsigned Integer Overflow</td>
+            <td>CVE-2016-9387</td>
+            <td>18 min</td>
+          </tr>
+
+          <tr>
+            <th scope="row">11</th>
             <td>OpenJPEG-1.5.1</td>
             <td>LibWebP-0.3.0</td>
             <td>Signed Integer Overflow</td>
             <td>CVE-2016-9262</td>
-            <td>6280b5ad</td>
             <td>2.5 min</td>
-            <td>4</td>
           </tr>
           <tr>
-            <th scope="row">6</th>
+            <th scope="row">12</th>
+            <td>Jasper-1.900.4</td>
+            <td>LibWebP-0.2.0</td>
+            <td>Shift Overflow</td>
+            <td>CVE-2016-9830</td>
+            <td>4.5 min</td>
+          </tr>
+           <tr>
+            <th scope="row">13</th>
             <td>LibWebP-0.3.0</td>
             <td>Jasper-1.900.3</td>
             <td>Shift Overflow</td>
             <td>CVE-2016-9830</td>
-            <td>7a650c6a</td>
             <td>11 min</td>
-            <td>1</td>
           </tr>
           <tr>
-            <th scope="row">7</th>
+            <th scope="row">14</th>
+            <td>OpenJPEG-1.5.2</td>
+            <td>Jasper-1.900.13</td>
+            <td>Heap Buffer Overflow</td>
+            <td>CVE-2016-9390</td>
+            <td>N/A </td>
+          </tr>
+          <tr>
+            <th scope="row">15</th>
+            <td>Jasper-1.900.14</td>
+            <td>OpenJPEG-2.1.0</td>
+            <td>Heap Buffer Overflow</td>
+            <td>CVE-2016-9390</td>
+            <td>N/A </td>
+          </tr>
+          <tr>
+            <th scope="row">16</th>
+            <td>Jasper-1.900.17</td>
+            <td>OpenJPEG-1.5.2</td>
+            <td>Unsigned Integer Overflow</td>
+            <td>CVE-2016-9393</td>
+            <td>12 min</td>
+          </tr>
+          <tr>
+            <th scope="row">17</th>
             <td>LibTiff-3.8.0</td>
             <td>Jasper-1.900.8</td>
             <td>Memory Write Error</td>
             <td>CVE-2016-8884</td>
-            <td>50373d7d</td>
-            <td>26 min</td>
-            <td>8</td>
+            <td>26 min </td>
+          </tr>
+          <tr>
+            <th scope="row">18</th>
+            <td>Libsndfile-1.0.26</td>
+            <td>WavPack-5.1.0</td>
+            <td>Shift Overflow</td>
+            <td>CVE-2017-6828</td>
+            <td>N/A </td>
+          </tr>
+          <tr>
+            <th scope="row">19</th>
+            <td>Jasper-1.900.13</td>
+            <td>Jasper-1.900.2</td>
+            <td>Integer Overflow</td>
+            <td>CVE-2016-9387</td>
+            <td>8 min </td>
+          </tr>
+          <tr>
+            <th scope="row">20</th>
+            <td>LibMing-0.4.8</td>
+            <td>LibMing-0.4.6</td>
+            <td>Divide by Zero</td>
+            <td>CVE-2016-9265</td>
+            <td>5.5 min </td>
+          </tr>
+           <tr>
+            <th scope="row">21</th>
+            <td>LibMing-0.4.8</td>
+            <td>LibMing-0.4.6</td>
+            <td>Negative Shift</td>
+            <td>CVE-2016-9266</td>
+            <td>5.5 min </td>
+          </tr>
+           <tr>
+            <th scope="row">22</th>
+            <td>LibTiff-4.0.8</td>
+            <td>LibTiff-4.0.0</td>
+            <td>Heap Buffer Overflow</td>
+            <td>CVE-2017-14039</td>
+            <td>26 min </td>
+          </tr>
+           <tr>
+            <th scope="row">23</th>
+            <td>Libsndfile-master</td>
+            <td>Libsndfile-1.0.26</td>
+            <td>Buffer Overflow</td>
+            <td>CVE-2017-8365</td>
+            <td>17 min </td>
+          </tr>
+           <tr>
+            <th scope="row">20</th>
+            <td>LibZip-1.3.0</td>
+            <td>LibZip-1.1.2</td>
+            <td>Buffer Overflow</td>
+            <td>CVE-2017-14107</td>
+            <td>44 min </td>
           </tr>
           </tbody>
         </table>
