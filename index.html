@@ -95,9 +95,15 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
         <img src="img/workflow.jpg" style="width: 100%">
         <div class="subheading mb-3">Summary</div>
         <p>
+          Software evolution is similar to biological evolution of organisms and previous work has attempted in introducing
+          advancements in medical technology into automated program repair. An example would be the transpire of horizontal
+          code transfer in software from allograft(transplantation from one body to another, instead of same body), where
+          software errors have been eliminated via fix ingredients transplanted from similar but different applications. However,
+          one of the challenges in allograft is the requirement to find a suitable donor where an organ can be found. Furthermore,
+          the process of adaptation of a foreign organ in the recipient environment is likely to be complicated.
+
           Given Pa and Pb, our approach first extracts the syntactic edits between Pa and Pb to obtain
-          a list of code segments (diffAB) for transplantation. Then,
-          our approach executes the test tF in Pa and Pc to analyze the
+          a list of code segments for transplantation. Then, our approach executes the failing test tF in Pa and Pc to analyze the
           traces of the failing input. During the test executions, sanitizers
           are used to detect errors (i.e., the address sanitizer detects
           memory errors for identifying program locations that lead to
