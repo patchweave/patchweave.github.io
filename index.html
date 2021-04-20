@@ -2,16 +2,13 @@
 <html lang="en">
 
 <head>
-
+  <title>PatchWeave - Automated Patch Transplantation</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="PatchWeave - Automated Patch Transplantation">
+  <meta name="author" content="Ridwan Shariffdeen">
   <!-- Place this tag in your head or just before your close body tag. -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
-
-  
-  <title>PatchWeave - Automated Patch Transplantation</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -66,16 +63,7 @@
      </div>
      <a href="https://hub.docker.com/repository/docker/rshariffdeen/patchweave"><img height="25" alt="Docker Pulls" src="https://img.shields.io/docker/pulls/rshariffdeen/patchweave?style=plastic"></a>
      &nbsp;&nbsp;
-    <!-- Place this tag where you want the button to render. -->
-    <a class="github-button" href="https://github.com/rshariffdeen/patchweave/archive/master.zip" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Download rshariffdeen/patchweave on GitHub">Download</a>
-    &nbsp; &nbsp;
-    <a class="github-button" href="https://github.com/rshariffdeen/patchweave/fork" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Fork rshariffdeen/patchweave on GitHub">Fork</a>
-    <!-- Place this tag where you want the button to render. -->
-<!--     &nbsp; &nbsp; -->
-<!--     <a class="github-button" href="https://github.com/sponsors/rshariffdeen" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Sponsor @rshariffdeen on GitHub">Sponsor</a>
-    <!-- Place this tag where you want the button to render. -->
-    &nbsp; &nbsp; 
-    <a class="github-button" href="https://github.com/rshariffdeen/patchweave" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Star rshariffdeen/patchweave on GitHub">Star</a>
+    <a class="github-button" href="https://github.com/rshariffdeen/patchweave" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="rshariffdeen/patchweave on GitHub">Github Repo</a>
   </nav>
 
   <div class="container-fluid">
@@ -83,24 +71,27 @@
     <section class="resume-section d-flex align-items-center" id="overview">
       <div class="w-100">
         <br><br>
-        <h1 class="mb-0">Automated
+        <h1 style="text-transform: none" class="mb-0">Automated
           <span class="text-primary">Patch</span> Transplantation
         </h1>
-        <div class="subheading mb-5">Automated Program Repair, Software Transplantation, Program Transformation
+        <div style="text-transform: none"  class="subheading mb-5">Automated Program Repair, Software Transplantation, Program Transformation
         </div>
-        <p class="lead mb-5">
-
+        <p class="lead mb-5" align='justify'>
+          <img src="img/main.png" style="display: table-cell;float: right; width: 500px; margin: 10px">
          Automated program repair is an emerging area which attempts to patch software errors and vulnerabilities.
 In this work, we formulate and study a problem related to automated repair, namely automated patch transplantation. A
 patch for an error in a donor program is automatically adapted and inserted into a “similar” target program. We observe that
 despite standard procedures for vulnerability disclosures and publishing of patches, many un-patched occurrences remain
 unprotected in the wild. One of the main reasons is the fact that various implementations of the same functionality may exist and
-as a result published patches need to be modified and adapted.
-
-          <br><br>
-          In this work, we therefore propose and implement a work-flow for transplanting patches. Our approach centers on identifying patch
+as a result published patches need to be modified and adapted. In this work, we therefore propose and implement a work-flow for transplanting patches. Our approach centers on identifying patch
 insertion points via symbolic execution and context information to adapt the patches. Since the publication of patches make
 an un-patched implementation more vulnerable, our proposed techniques should serve a long-standing need in practice.
+          Software evolution is similar to biological evolution of organisms and previous work has attempted in introducing
+          advancements in medical technology into automated program repair. An example would be the transpire of horizontal
+          code transfer in software from allograft(transplantation from one body to another, instead of same body), where
+          software errors have been eliminated via fix ingredients transplanted from similar but different applications. However,
+          one of the challenges in allograft is the requirement to find a suitable donor where an organ can be found. Furthermore,
+          the process of adaptation of a foreign organ in the recipient environment is likely to be complicated.
 
         </p>
               <div class="container">
@@ -129,18 +120,8 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="workflow">
       <div class="w-100">
         <h2 class="mb-5">Approach</h2>
-
-        <div class="subheading mb-3">High Level Overview</div>
         <img src="img/workflow.jpg" style="width: 100%">
-        <div class="subheading mb-3">Summary</div>
         <p>
-          Software evolution is similar to biological evolution of organisms and previous work has attempted in introducing
-          advancements in medical technology into automated program repair. An example would be the transpire of horizontal
-          code transfer in software from allograft(transplantation from one body to another, instead of same body), where
-          software errors have been eliminated via fix ingredients transplanted from similar but different applications. However,
-          one of the challenges in allograft is the requirement to find a suitable donor where an organ can be found. Furthermore,
-          the process of adaptation of a foreign organ in the recipient environment is likely to be complicated.
-
           Given Pa and Pb, our approach first extracts the syntactic edits between Pa and Pb to obtain
           a list of code segments for transplantation. Then, our approach executes the failing test tF in Pa and Pc to analyze the
           traces of the failing input. During the test executions, sanitizers
@@ -165,16 +146,15 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
 
     <section class="resume-section p-3 p-lg-5 d-flex justify-content-center" id="tool">
       <div class="w-100">
+        <br><br>
         <h2 class="mb-5">Tool</h2>
         <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5" style="margin-top: -50px">
         Implemented in Python and C, this github repository contains the source for PatchWeave and the scripts for the data sets,
         including test suites, that we used for our experiments.
         </div>
-
         <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
           <div class="resume-content">
             <h3 class="mb-0">Dependencies</h3>
-            <br>
             <ul>
               <li>
                 LLVM - 3.4
@@ -190,32 +170,19 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
                 Python - 2.7
             </ul>
 
-          </div>
-
-        </div>
-
-        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-          <div class="resume-content">
             <h3 class="mb-0">Source Files</h3>
-            <br>
             <p>
               <a href="https://github.com/rshariffdeen/PatchWeave">Github Repository</a>
             </p>
 
+            <h3 class="mb-0">Docker Image</h3>
+            <a href="https://hub.docker.com/repository/docker/rshariffdeen/patchweave">Dockerhub Repository</a><br>
+            Docker image only with the tool can be obtained using the tag <b>latest</b><br>
+            Docker image with scripts to reproduce the experiments can be obtained using the tag <b>experiments</b>
           </div>
 
         </div>
 
-        <div class="resume-item d-flex flex-column flex-md-row justify-content-between mb-5">
-          <div class="resume-content">
-            <h3 class="mb-0">Docker Image</h3>
-            <br>
-              <a href="https://hub.docker.com/repository/docker/rshariffdeen/patchweave">Dockerhub Repository</a><br>
-              Docker image only with the tool can be obtained using the tag <b>latest</b><br>
-              Docker image with scripts to reproduce the experiments can be obtained using the tag <b>experiments</b>
-        </div>
-
-        </div>
 
       </div>
 
@@ -234,7 +201,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">LOC</th>
-                <th scope="col">Version Range</th>
+                <th scope="col" style="width: 20%">Version Range</th>
                 <th scope="col">Repository</th>
               </tr>
               </thead>
@@ -317,8 +284,9 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
 
     <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="evaluation">
       <div class="w-100">
+        <br><br>
         <h2 class="mb-5">Evaluation</h2>
-        <p>
+        <p style="margin-top: -50px">
           We evaluate PatchWeave on five classes of errors, including integer overflow, division by zero,
           null pointer dereference, heap buffer overflow and memory errors. We obtain our subjects from a public repository
           that contains exploits and steps to reproduce vulnerabilities published in the CVE database. For donor and target
@@ -350,24 +318,24 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <td>CVE-2016-8691</td>
             <td>5 min</td>
           </tr>
-          <tr>
+<!--          <tr>-->
+<!--            <th scope="row">2</th>-->
+<!--            <td>OpenJPEG-1.5.2</td>-->
+<!--            <td>Jasper-1.900.2</td>-->
+<!--            <td>Divide by Zero</td>-->
+<!--            <td>CVE-2016-8691</td>-->
+<!--            <td>8 min</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th scope="row">3</th>-->
+<!--            <td>Jasper-1.900.13</td>-->
+<!--            <td>OpenJPEG-1.5.1</td>-->
+<!--            <td>Integer Overflow</td>-->
+<!--            <td>CVE-2016-9387</td>-->
+<!--            <td>7.5 min</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
             <th scope="row">2</th>
-            <td>OpenJPEG-1.5.2</td>
-            <td>Jasper-1.900.2</td>
-            <td>Divide by Zero</td>
-            <td>CVE-2016-8691</td>
-            <td>8 min</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Jasper-1.900.13</td>
-            <td>OpenJPEG-1.5.1</td>
-            <td>Integer Overflow</td>
-            <td>CVE-2016-9387</td>
-            <td>7.5 min</td>
-          </tr>
-          <tr>
-            <th scope="row">4</th>
             <td>OpenJPEG-1.5.2</td>
             <td>Jasper-1.900.12</td>
             <td>Integer Overflow</td>
@@ -375,148 +343,148 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <td>8.5 min</td>
           </tr>
 
-          <tr>
-            <th scope="row">5</th>
-            <td>Jasper-2.0.13</td>
-            <td>OpenJPEG-1.5.1</td>
-            <td>Null Pointer Dereference</td>
-            <td>CVE-2017-6850</td>
-            <td>N/A</td>
-          </tr>
+<!--          <tr>-->
+<!--            <th scope="row">2</th>-->
+<!--            <td>Jasper-2.0.13</td>-->
+<!--            <td>OpenJPEG-1.5.1</td>-->
+<!--            <td>Null Pointer Dereference</td>-->
+<!--            <td>CVE-2017-6850</td>-->
+<!--            <td>N/A</td>-->
+<!--          </tr>-->
 
-          <tr>
-            <th scope="row">6</th>
-            <td>OpenJPEG-1.5.2</td>
-            <td>Jasper-1.900.30</td>
-            <td>Null Pointer Dereference</td>
-            <td>CVE-2016-9387</td>
-            <td>15 min</td>
-          </tr>
+<!--          <tr>-->
+<!--            <th scope="row">6</th>-->
+<!--            <td>OpenJPEG-1.5.2</td>-->
+<!--            <td>Jasper-1.900.30</td>-->
+<!--            <td>Null Pointer Dereference</td>-->
+<!--            <td>CVE-2016-9387</td>-->
+<!--            <td>15 min</td>-->
+<!--          </tr>-->
 
-          <tr>
-            <th scope="row">7</th>
-            <td>Jasper-1.900.3</td>
-            <td>OpenJPEG-1.3</td>
-            <td>Divide by Zero</td>
-            <td>CVE-2016-8692</td>
-            <td>3.5 min</td>
-          </tr>
-          <tr>
-            <th scope="row">8</th>
-            <td>OpenJPEG-1.4</td>
-            <td>Jasper-1.900.2</td>
-            <td>Divide by Zero</td>
-            <td>CVE-2016-8692</td>
-            <td>5.5 min</td>
-          </tr>
+<!--          <tr>-->
+<!--            <th scope="row">7</th>-->
+<!--            <td>Jasper-1.900.3</td>-->
+<!--            <td>OpenJPEG-1.3</td>-->
+<!--            <td>Divide by Zero</td>-->
+<!--            <td>CVE-2016-8692</td>-->
+<!--            <td>3.5 min</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th scope="row">8</th>-->
+<!--            <td>OpenJPEG-1.4</td>-->
+<!--            <td>Jasper-1.900.2</td>-->
+<!--            <td>Divide by Zero</td>-->
+<!--            <td>CVE-2016-8692</td>-->
+<!--            <td>5.5 min</td>-->
+<!--          </tr>-->
 
-          <tr>
-            <th scope="row">9</th>
-            <td>Jasper-1.900.14</td>
-            <td>OpenJPEG-2.1.0</td>
-            <td>Unsigned Integer Overflow</td>
-            <td>CVE-2016-9387</td>
-            <td>6 min</td>
-          </tr>
-          <tr>
-            <th scope="row">10</th>
-            <td>OpenJPEG-2.1.1</td>
-            <td>Jasper-1.900.13</td>
-            <td>Unsigned Integer Overflow</td>
-            <td>CVE-2016-9387</td>
-            <td>18 min</td>
-          </tr>
+<!--          <tr>-->
+<!--            <th scope="row">9</th>-->
+<!--            <td>Jasper-1.900.14</td>-->
+<!--            <td>OpenJPEG-2.1.0</td>-->
+<!--            <td>Unsigned Integer Overflow</td>-->
+<!--            <td>CVE-2016-9387</td>-->
+<!--            <td>6 min</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th scope="row">10</th>-->
+<!--            <td>OpenJPEG-2.1.1</td>-->
+<!--            <td>Jasper-1.900.13</td>-->
+<!--            <td>Unsigned Integer Overflow</td>-->
+<!--            <td>CVE-2016-9387</td>-->
+<!--            <td>18 min</td>-->
+<!--          </tr>-->
 
-          <tr>
-            <th scope="row">11</th>
-            <td>OpenJPEG-1.5.1</td>
-            <td>LibWebP-0.3.0</td>
-            <td>Signed Integer Overflow</td>
-            <td>CVE-2016-9262</td>
-            <td>2.5 min</td>
-          </tr>
-          <tr>
-            <th scope="row">12</th>
-            <td>Jasper-1.900.4</td>
-            <td>LibWebP-0.2.0</td>
-            <td>Shift Overflow</td>
-            <td>CVE-2016-9830</td>
-            <td>4.5 min</td>
-          </tr>
+<!--          <tr>-->
+<!--            <th scope="row">11</th>-->
+<!--            <td>OpenJPEG-1.5.1</td>-->
+<!--            <td>LibWebP-0.3.0</td>-->
+<!--            <td>Signed Integer Overflow</td>-->
+<!--            <td>CVE-2016-9262</td>-->
+<!--            <td>2.5 min</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th scope="row">12</th>-->
+<!--            <td>Jasper-1.900.4</td>-->
+<!--            <td>LibWebP-0.2.0</td>-->
+<!--            <td>Shift Overflow</td>-->
+<!--            <td>CVE-2016-9830</td>-->
+<!--            <td>4.5 min</td>-->
+<!--          </tr>-->
            <tr>
-            <th scope="row">13</th>
+            <th scope="row">3</th>
             <td>LibWebP-0.3.0</td>
             <td>Jasper-1.900.3</td>
             <td>Shift Overflow</td>
             <td>CVE-2016-9830</td>
             <td>11 min</td>
           </tr>
+<!--          <tr>-->
+<!--            <th scope="row">14</th>-->
+<!--            <td>OpenJPEG-1.5.2</td>-->
+<!--            <td>Jasper-1.900.13</td>-->
+<!--            <td>Heap Buffer Overflow</td>-->
+<!--            <td>CVE-2016-9390</td>-->
+<!--            <td>N/A </td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th scope="row">15</th>-->
+<!--            <td>Jasper-1.900.14</td>-->
+<!--            <td>OpenJPEG-2.1.0</td>-->
+<!--            <td>Heap Buffer Overflow</td>-->
+<!--            <td>CVE-2016-9390</td>-->
+<!--            <td>N/A </td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th scope="row">16</th>-->
+<!--            <td>Jasper-1.900.17</td>-->
+<!--            <td>OpenJPEG-1.5.2</td>-->
+<!--            <td>Unsigned Integer Overflow</td>-->
+<!--            <td>CVE-2016-9393</td>-->
+<!--            <td>12 min</td>-->
+<!--          </tr>-->
           <tr>
-            <th scope="row">14</th>
-            <td>OpenJPEG-1.5.2</td>
-            <td>Jasper-1.900.13</td>
-            <td>Heap Buffer Overflow</td>
-            <td>CVE-2016-9390</td>
-            <td>N/A </td>
-          </tr>
-          <tr>
-            <th scope="row">15</th>
-            <td>Jasper-1.900.14</td>
-            <td>OpenJPEG-2.1.0</td>
-            <td>Heap Buffer Overflow</td>
-            <td>CVE-2016-9390</td>
-            <td>N/A </td>
-          </tr>
-          <tr>
-            <th scope="row">16</th>
-            <td>Jasper-1.900.17</td>
-            <td>OpenJPEG-1.5.2</td>
-            <td>Unsigned Integer Overflow</td>
-            <td>CVE-2016-9393</td>
-            <td>12 min</td>
-          </tr>
-          <tr>
-            <th scope="row">17</th>
+            <th scope="row">5</th>
             <td>LibTiff-3.8.0</td>
             <td>Jasper-1.900.8</td>
             <td>Memory Write Error</td>
             <td>CVE-2016-8884</td>
             <td>26 min </td>
           </tr>
-          <tr>
-            <th scope="row">18</th>
-            <td>Libsndfile-1.0.26</td>
-            <td>WavPack-5.1.0</td>
-            <td>Shift Overflow</td>
-            <td>CVE-2017-6828</td>
-            <td>N/A </td>
-          </tr>
-          <tr>
-            <th scope="row">19</th>
-            <td>Jasper-1.900.13</td>
-            <td>Jasper-1.900.2</td>
-            <td>Integer Overflow</td>
-            <td>CVE-2016-9387</td>
-            <td>8 min </td>
-          </tr>
-          <tr>
-            <th scope="row">20</th>
-            <td>LibMing-0.4.8</td>
-            <td>LibMing-0.4.6</td>
-            <td>Divide by Zero</td>
-            <td>CVE-2016-9265</td>
-            <td>5.5 min </td>
-          </tr>
+<!--          <tr>-->
+<!--            <th scope="row">18</th>-->
+<!--            <td>Libsndfile-1.0.26</td>-->
+<!--            <td>WavPack-5.1.0</td>-->
+<!--            <td>Shift Overflow</td>-->
+<!--            <td>CVE-2017-6828</td>-->
+<!--            <td>N/A </td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th scope="row">19</th>-->
+<!--            <td>Jasper-1.900.13</td>-->
+<!--            <td>Jasper-1.900.2</td>-->
+<!--            <td>Integer Overflow</td>-->
+<!--            <td>CVE-2016-9387</td>-->
+<!--            <td>8 min </td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <th scope="row">20</th>-->
+<!--            <td>LibMing-0.4.8</td>-->
+<!--            <td>LibMing-0.4.6</td>-->
+<!--            <td>Divide by Zero</td>-->
+<!--            <td>CVE-2016-9265</td>-->
+<!--            <td>5.5 min </td>-->
+<!--          </tr>-->
+<!--           <tr>-->
+<!--            <th scope="row">21</th>-->
+<!--            <td>LibMing-0.4.8</td>-->
+<!--            <td>LibMing-0.4.6</td>-->
+<!--            <td>Negative Shift</td>-->
+<!--            <td>CVE-2016-9266</td>-->
+<!--            <td>5.5 min </td>-->
+<!--          </tr>-->
            <tr>
-            <th scope="row">21</th>
-            <td>LibMing-0.4.8</td>
-            <td>LibMing-0.4.6</td>
-            <td>Negative Shift</td>
-            <td>CVE-2016-9266</td>
-            <td>5.5 min </td>
-          </tr>
-           <tr>
-            <th scope="row">22</th>
+            <th scope="row">6</th>
             <td>LibTiff-4.0.8</td>
             <td>LibTiff-4.0.0</td>
             <td>Heap Buffer Overflow</td>
@@ -524,7 +492,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <td>26 min </td>
           </tr>
            <tr>
-            <th scope="row">23</th>
+            <th scope="row">7</th>
             <td>Libsndfile-master</td>
             <td>Libsndfile-1.0.26</td>
             <td>Buffer Overflow</td>
@@ -532,7 +500,7 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
             <td>17 min </td>
           </tr>
            <tr>
-            <th scope="row">24</th>
+            <th scope="row">8</th>
             <td>LibZip-1.3.0</td>
             <td>LibZip-1.1.2</td>
             <td>Buffer Overflow</td>
@@ -547,263 +515,18 @@ an un-patched implementation more vulnerable, our proposed techniques should ser
     <hr class="m-0">
  <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="apr">
       <div class="w-100">
+        <br><br>
         <h2 class="mb-5">Artifacts</h2>
-        <p>
-          We list below the following artifacts for some of the experiment in our evaluation section of the paper; the developer patch
-          from the donor, the generated patch by our tool for the target, F1X generated patch and Prophet generated patch for comparison purposes. <br>
-        </p>
+        We provide a replication package for our experiments with PatchWeave on the our data-set in a Docker container, which consists of setup scripts/configuration
+        files to re-run the experiments. The Docker environment consists of all dependencies for PatchWeave, KLEE, and other subjects in the benchmarks.
 
-       <div class="resume-content">
-            <table class="table table-hover table-responsive">
-              <thead >
-              <tr>
-                <th scope="col">Id</th>
-                <th scope="col" >Program</th>
-                <th scope="col" >Error Type</th>
-                <th scope="col" >Donor Patch</th>
-                <th scope="col" >Transplanted Patch</th>
-                <th scope="col" >F1X Patch</th>
-                <th scope="col" >Prophet Patch</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>OpenJPEG</td>
-                <td>Divide by Zero</td>
-                  <td><a href="https://github.com/mdadams/jasper/commit/d8c2604cd438c41ec72aff52c16ebd8183068020">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/1.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/1.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/1.patch">Patch</a>    </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-              <td>Jasper</td>
-                <td>Divide by Zero</td>
-                  <td><a href="https://github.com/uclouvain/openjpeg/commit/e55d5e29e0017e55a07a6c8d562091e31697341c#diff-34e35bc2aefa4ec848d41eed5cb81160">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/2.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/2.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/2.patch">Patch</a>    </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-              <td>OpenJPEG</td>
-                <td>Signed Integer Overflow</td>
-                  <td><a href="https://github.com/mdadams/jasper/commit/d91198abd00fc435a397fe6bad906a4c1748e9cf">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/3.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/3.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/3.patch">Patch</a>    </td>
-              </tr>
+        <br><br>
+        You can access the replication package via Dockerhub at this <a href="https://hub.docker.com/repository/docker/rshariffdeen/patchweave">link </a> (use the tag experiments)
+        by using the following command: <br>
+        <pre><code>docker pull rshariffdeen/patchweave:experiments</code></pre>
 
-              <tr>
-                <th scope="row">4</th>
-              <td>Jasper</td>
-                <td>Signed Integer Overflow</td>
-                  <td><a href="https://github.com/uclouvain/openjpeg/commit/6e0162a8a67932e59489b6f6a3bec01d64d2db8b#diff-34e35bc2aefa4ec848d41eed5cb81160">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/4.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/4.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/4.patch">Patch</a>    </td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-               <td>OpenJPEG</td>
-                <td>Null Pointer Dereference</td>
-                  <td><a href="https://github.com/mdadams/jasper/commit/e96fc4fdd525fa0ede28074a7e2b1caf94b58b0d">Patch</a>  </td>
-                  <td> N/A  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/5.patch">Patch</a>    </td>
-                  <td> N/A  </td>
-              </tr>
-              <tr>
-                <th scope="row">6</th>
-            <td>Jasper</td>
-                <td>Null Pointer Dereference</td>
-                  <td><a href="">Patch</a>  </td>
-                  <td><a href="https://github.com/uclouvain/openjpeg/commit/6280b5ad8d12ad8f2c6756f22ec616b26d5acde7#diff-7cff5a8a5cf21064c01cadba5761c534">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/6.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/6.patch">Patch</a>    </td>
+        For readability, we further provide the list of patches <a href="patches.html">here</a>
 
-              </tr>
-
-
-              <tr>
-                <th scope="row">7</th>
-               <td>OpenJPEG</td>
-                <td>Divide by Zero</td>
-                  <td><a href="https://github.com/mdadams/jasper/commit/d8c2604cd438c41ec72aff52c16ebd8183068020">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/7.patch">Patch</a>    </td>
-                  <td> N/A  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/7.patch">Patch</a>    </td>
-              </tr>
-              <tr>
-                <th scope="row">8</th>
-           <td>Jasper</td>
-                <td>Divide by Zero</td>
-                  <td><a href="https://github.com/uclouvain/openjpeg/commit/f4d394d9324f12e820339fce0182b1d47f831059#diff-34e35bc2aefa4ec848d41eed5cb81160">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/8.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/8.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/8.patch">Patch</a>    </td>
-              </tr>
-              <tr>
-                <th scope="row">9</th>
-           <td>OpenJPEG</td>
-                <td>Unsigned Integer Overflow</td>
-                  <td><a href="https://github.com/mdadams/jasper/commit/ba2b9d000660313af7b692542afbd374c5685865">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/9.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/9.patch">Patch</a>    </td>
-                  <td> N/A </td>
-              </tr>
-                <tr>
-                <th scope="row">10</th>
-           <td>Jasper</td>
-                <td>Unsigned Integer Overflow</td>
-                  <td><a href="https://github.com/uclouvain/openjpeg/commit/58fc86452dbe0ebfd62077c0d8ec3db688417d3a">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/10.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/10.patch">Patch</a>    </td>
-                  <td> N/A </td>
-              </tr>
-                <tr>
-                <th scope="row">11</th>
-           <td>LibWebP</td>
-                <td>Signed Integer Overflow</td>
-                  <td><a href="https://github.com/uclouvain/openjpeg/commit/6280b5ad8d12ad8f2c6756f22ec616b26d5acde7#diff-7cff5a8a5cf21064c01cadba5761c534">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/11.patch">Patch</a>    </td>
-                  <td> N/A   </td>
-                  <td> <a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/11.patch">Patch</a> </td>
-              </tr>
-
-                <tr>
-                <th scope="row">12</th>
-           <td>LibWebP</td>
-                <td>Shift Overflow</td>
-                  <td><a href="https://github.com/mdadams/jasper/commit/6109f6a4e731085f50aca1a483fa90668e3203d9">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/12.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/12.patch">Patch</a>    </td>
-                  <td> N/A </td>
-              </tr>
-
-              <tr>
-                <th scope="row">13</th>
-           <td>Jasper</td>
-                <td>Shift Overflow</td>
-                  <td><a href="https://github.com/webmproject/libwebp/commit/7a650c6ad65cc77421aaf3d9aadfdfd583e54b8d">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/13.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/13.patch">Patch</a>    </td>
-                  <td> N/A </td>
-              </tr>
-               <tr>
-              <th scope="row">14</th>
-           <td>OpenJPEG</td>
-                <td>Heap Overflow</td>
-                  <td><a href="https://github.com/uclouvain/openjpeg/commit/69cd4f9211a33367e11563240ca1d5e095a804af#diff-05e88b300a6d6155fd0c0479f0bbc05f">Patch</a>  </td>
-                  <td> N/A    </td>
-                  <td> N/A   </td>
-                  <td> N/A </td>
-              </tr>
-
-               <tr>
-              <th scope="row">15</th>
-           <td>Jasper</td>
-                <td>Heap Overflow</td>
-                  <td><a href="https://github.com/mdadams/jasper/commit/dee11ec440d7908d1daf69f40a3324b27cf213ba">Patch</a>  </td>
-                  <td> N/A    </td>
-                  <td> N/A   </td>
-                  <td> N/A </td>
-              </tr>
-
-                  <tr>
-              <th scope="row">16</th>
-           <td>OpenJPEG</td>
-                <td>Unsigned Integer Overflow</td>
-                  <td><a href="https://github.com/mdadams/jasper/commit/f7038068550fba0e41e1d0c355787f1dcd5bf330">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/16.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/16.patch">Patch</a>    </td>
-                  <td> N/A </td>
-              </tr>
-
-                  <tr>
-              <th scope="row">17</th>
-           <td>Jasper</td>
-                <td>Memory Write Error</td>
-                  <td><a href="https://github.com/vadz/libtiff/commit/50373d7d2290701732cad0690260c48184f8b8b6">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/17.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/17.patch">Patch</a>    </td>
-                  <td> N/A </td>
-              </tr>
-
-
-                  <tr>
-              <th scope="row">18</th>
-           <td>WavPack</td>
-                <td>Shift Overflow</td>
-                  <td><a href="https://github.com/erikd/libsndfile/commit/3e91aaf7aa6c9e961edbc5d1f3a529ac1637c2b2">Patch</a>  </td>
-                  <td> N/A   </td>
-                  <td> N/A   </td>
-                  <td> N/A </td>
-              </tr>
-
-                  <tr>
-              <th scope="row">19</th>
-           <td>Jasper</td>
-                <td>Signed Integer Overflow</td>
-                  <td><a href="https://github.com/mdadams/jasper/commit/d91198abd00fc435a397fe6bad906a4c1748e9cf">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/19.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/19.patch">Patch</a>    </td>
-                  <td> <a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/19.patch">Patch</a></td>
-              </tr>
-
-                  <tr>
-              <th scope="row">20</th>
-           <td>LibMing</td>
-                <td>Divide by Zero</td>
-                  <td><a href="https://github.com/libming/libming/commit/b0704f80ef2ec1507043df77d6519d18cf017e16">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/20.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/20.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/20.patch">Patch</a>   </td>
-              </tr>
-
-                  <tr>
-              <th scope="row">21</th>
-           <td>LibMing</td>
-                <td>Negative Shift</td>
-                  <td><a href="https://github.com/libming/libming/commit/2e5a98a0dbbd9714294007c601e584aa201494ed">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/21.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/21.patch">Patch</a>    </td>
-                  <td> N/A </td>
-              </tr>
-
-                  <tr>
-              <th scope="row">22</th>
-           <td>Libtiff</td>
-                <td>Heap Buffer Overflow</td>
-                  <td><a href="https://github.com/vadz/libtiff/commit/5ed9fea523316c2f5cec4d393e4d5d671c2dbc33">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/22.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/22.patch">Patch</a>    </td>
-                  <td> N/A </td>
-              </tr>
-
-                  <tr>
-              <th scope="row">23</th>
-           <td>Libsndfile</td>
-                <td>Buffer Overflow</td>
-                  <td><a href="https://github.com/erikd/libsndfile/commit/fd0484aba8e51d16af1e3a880f9b8b857b385eb3">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/23.patch">Patch</a>    </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/23/patch">Patch</a>    </td>
-                  <td> N/A </td>
-              </tr>
-
-                  <tr>
-              <th scope="row">24</th>
-           <td>LibZIP</td>
-                <td>Buffer Overflow</td>
-                  <td><a href="https://github.com/nih-at/libzip/commit/9b46957ec98d85a572e9ef98301247f39338a3b5">Patch</a>  </td>
-                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/24.patch">Patch</a>    </td>
-                  <td> N/A </td>
-                  <td> N/A </td>
-              </tr>
-              </tbody>
-            </table>
-
-          </div>
 
       </div>
     </section>

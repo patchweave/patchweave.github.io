@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+  <title>PatchWeave - Automated Patch Transplantation</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom fonts for this template -->
+  <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet">
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+   <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+  <!-- Custom styles for this template -->
+  <link href="css/resume.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" >
+    <a class="navbar-brand js-scroll-trigger" href="#page-top">
+      <span class="d-block d-lg-none">Patch Weave</span>
+      <span class="d-none d-lg-block">
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="index.html#overview">Overview</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="index.html#workflow">Workflow</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="index.html#tool">Tool</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="index.html#subjects">Subjects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="index.html#evaluation">Evaluation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link js-scroll-trigger" href="index.html#apr">Artifacts</a>
+        </li>
+
+      </ul>
+      <!-- Place this tag where you want the button to render. -->
+     </div>
+     <a href="https://hub.docker.com/repository/docker/rshariffdeen/patchweave"><img height="25" alt="Docker Pulls" src="https://img.shields.io/docker/pulls/rshariffdeen/patchweave?style=plastic"></a>
+     &nbsp;&nbsp;
+    <a class="github-button" href="https://github.com/rshariffdeen/patchweave" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="rshariffdeen/patchweave on GitHub">Github Repo</a>
+  </nav>
+
+  <div class="container-fluid">
+
+
+
+ <section class="resume-section p-3 p-lg-5 d-flex align-items-center" id="apr">
+      <div class="w-100">
+        <br><br>
+        <h2 class="mb-5">Patches</h2>
+
+        <p>
+          We list below the following artifacts for some of the experiment in our evaluation section of the paper; the developer patch
+          from the donor, the generated patch by our tool for the target, F1X generated patch and Prophet generated patch for comparison purposes. <br>
+        </p>
+
+       <div class="resume-content">
+            <table class="table table-hover table-responsive">
+              <thead >
+              <tr>
+                <th scope="col">Id</th>
+                <th scope="col" >Program</th>
+                <th scope="col" >Error Type</th>
+                <th scope="col" >Donor Patch</th>
+                <th scope="col" >Transplanted Patch</th>
+                <th scope="col" >F1X Patch</th>
+                <th scope="col" >Prophet Patch</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>OpenJPEG</td>
+                <td>Divide by Zero</td>
+                  <td><a href="https://github.com/mdadams/jasper/commit/d8c2604cd438c41ec72aff52c16ebd8183068020">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/1.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/1.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/1.patch">Patch</a>    </td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+              <td>Jasper</td>
+                <td>Divide by Zero</td>
+                  <td><a href="https://github.com/uclouvain/openjpeg/commit/e55d5e29e0017e55a07a6c8d562091e31697341c#diff-34e35bc2aefa4ec848d41eed5cb81160">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/2.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/2.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/2.patch">Patch</a>    </td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+              <td>OpenJPEG</td>
+                <td>Signed Integer Overflow</td>
+                  <td><a href="https://github.com/mdadams/jasper/commit/d91198abd00fc435a397fe6bad906a4c1748e9cf">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/3.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/3.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/3.patch">Patch</a>    </td>
+              </tr>
+
+              <tr>
+                <th scope="row">4</th>
+              <td>Jasper</td>
+                <td>Signed Integer Overflow</td>
+                  <td><a href="https://github.com/uclouvain/openjpeg/commit/6e0162a8a67932e59489b6f6a3bec01d64d2db8b#diff-34e35bc2aefa4ec848d41eed5cb81160">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/4.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/4.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/4.patch">Patch</a>    </td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
+               <td>OpenJPEG</td>
+                <td>Null Pointer Dereference</td>
+                  <td><a href="https://github.com/mdadams/jasper/commit/e96fc4fdd525fa0ede28074a7e2b1caf94b58b0d">Patch</a>  </td>
+                  <td> N/A  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/5.patch">Patch</a>    </td>
+                  <td> N/A  </td>
+              </tr>
+              <tr>
+                <th scope="row">6</th>
+            <td>Jasper</td>
+                <td>Null Pointer Dereference</td>
+                  <td><a href="">Patch</a>  </td>
+                  <td><a href="https://github.com/uclouvain/openjpeg/commit/6280b5ad8d12ad8f2c6756f22ec616b26d5acde7#diff-7cff5a8a5cf21064c01cadba5761c534">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/6.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/6.patch">Patch</a>    </td>
+
+              </tr>
+
+
+              <tr>
+                <th scope="row">7</th>
+               <td>OpenJPEG</td>
+                <td>Divide by Zero</td>
+                  <td><a href="https://github.com/mdadams/jasper/commit/d8c2604cd438c41ec72aff52c16ebd8183068020">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/7.patch">Patch</a>    </td>
+                  <td> N/A  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/7.patch">Patch</a>    </td>
+              </tr>
+              <tr>
+                <th scope="row">8</th>
+           <td>Jasper</td>
+                <td>Divide by Zero</td>
+                  <td><a href="https://github.com/uclouvain/openjpeg/commit/f4d394d9324f12e820339fce0182b1d47f831059#diff-34e35bc2aefa4ec848d41eed5cb81160">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/8.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/8.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/8.patch">Patch</a>    </td>
+              </tr>
+              <tr>
+                <th scope="row">9</th>
+           <td>OpenJPEG</td>
+                <td>Unsigned Integer Overflow</td>
+                  <td><a href="https://github.com/mdadams/jasper/commit/ba2b9d000660313af7b692542afbd374c5685865">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/9.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/9.patch">Patch</a>    </td>
+                  <td> N/A </td>
+              </tr>
+                <tr>
+                <th scope="row">10</th>
+           <td>Jasper</td>
+                <td>Unsigned Integer Overflow</td>
+                  <td><a href="https://github.com/uclouvain/openjpeg/commit/58fc86452dbe0ebfd62077c0d8ec3db688417d3a">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/10.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/10.patch">Patch</a>    </td>
+                  <td> N/A </td>
+              </tr>
+                <tr>
+                <th scope="row">11</th>
+           <td>LibWebP</td>
+                <td>Signed Integer Overflow</td>
+                  <td><a href="https://github.com/uclouvain/openjpeg/commit/6280b5ad8d12ad8f2c6756f22ec616b26d5acde7#diff-7cff5a8a5cf21064c01cadba5761c534">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/11.patch">Patch</a>    </td>
+                  <td> N/A   </td>
+                  <td> <a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/11.patch">Patch</a> </td>
+              </tr>
+
+                <tr>
+                <th scope="row">12</th>
+           <td>LibWebP</td>
+                <td>Shift Overflow</td>
+                  <td><a href="https://github.com/mdadams/jasper/commit/6109f6a4e731085f50aca1a483fa90668e3203d9">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/12.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/12.patch">Patch</a>    </td>
+                  <td> N/A </td>
+              </tr>
+
+              <tr>
+                <th scope="row">13</th>
+           <td>Jasper</td>
+                <td>Shift Overflow</td>
+                  <td><a href="https://github.com/webmproject/libwebp/commit/7a650c6ad65cc77421aaf3d9aadfdfd583e54b8d">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/13.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/13.patch">Patch</a>    </td>
+                  <td> N/A </td>
+              </tr>
+               <tr>
+              <th scope="row">14</th>
+           <td>OpenJPEG</td>
+                <td>Heap Overflow</td>
+                  <td><a href="https://github.com/uclouvain/openjpeg/commit/69cd4f9211a33367e11563240ca1d5e095a804af#diff-05e88b300a6d6155fd0c0479f0bbc05f">Patch</a>  </td>
+                  <td> N/A    </td>
+                  <td> N/A   </td>
+                  <td> N/A </td>
+              </tr>
+
+               <tr>
+              <th scope="row">15</th>
+           <td>Jasper</td>
+                <td>Heap Overflow</td>
+                  <td><a href="https://github.com/mdadams/jasper/commit/dee11ec440d7908d1daf69f40a3324b27cf213ba">Patch</a>  </td>
+                  <td> N/A    </td>
+                  <td> N/A   </td>
+                  <td> N/A </td>
+              </tr>
+
+                  <tr>
+              <th scope="row">16</th>
+           <td>OpenJPEG</td>
+                <td>Unsigned Integer Overflow</td>
+                  <td><a href="https://github.com/mdadams/jasper/commit/f7038068550fba0e41e1d0c355787f1dcd5bf330">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/16.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/16.patch">Patch</a>    </td>
+                  <td> N/A </td>
+              </tr>
+
+                  <tr>
+              <th scope="row">17</th>
+           <td>Jasper</td>
+                <td>Memory Write Error</td>
+                  <td><a href="https://github.com/vadz/libtiff/commit/50373d7d2290701732cad0690260c48184f8b8b6">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/17.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/17.patch">Patch</a>    </td>
+                  <td> N/A </td>
+              </tr>
+
+
+                  <tr>
+              <th scope="row">18</th>
+           <td>WavPack</td>
+                <td>Shift Overflow</td>
+                  <td><a href="https://github.com/erikd/libsndfile/commit/3e91aaf7aa6c9e961edbc5d1f3a529ac1637c2b2">Patch</a>  </td>
+                  <td> N/A   </td>
+                  <td> N/A   </td>
+                  <td> N/A </td>
+              </tr>
+
+                  <tr>
+              <th scope="row">19</th>
+           <td>Jasper</td>
+                <td>Signed Integer Overflow</td>
+                  <td><a href="https://github.com/mdadams/jasper/commit/d91198abd00fc435a397fe6bad906a4c1748e9cf">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/19.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/19.patch">Patch</a>    </td>
+                  <td> <a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/19.patch">Patch</a></td>
+              </tr>
+
+                  <tr>
+              <th scope="row">20</th>
+           <td>LibMing</td>
+                <td>Divide by Zero</td>
+                  <td><a href="https://github.com/libming/libming/commit/b0704f80ef2ec1507043df77d6519d18cf017e16">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/20.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/20.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/prophet/20.patch">Patch</a>   </td>
+              </tr>
+
+                  <tr>
+              <th scope="row">21</th>
+           <td>LibMing</td>
+                <td>Negative Shift</td>
+                  <td><a href="https://github.com/libming/libming/commit/2e5a98a0dbbd9714294007c601e584aa201494ed">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/21.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/21.patch">Patch</a>    </td>
+                  <td> N/A </td>
+              </tr>
+
+                  <tr>
+              <th scope="row">22</th>
+           <td>Libtiff</td>
+                <td>Heap Buffer Overflow</td>
+                  <td><a href="https://github.com/vadz/libtiff/commit/5ed9fea523316c2f5cec4d393e4d5d671c2dbc33">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/22.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/22.patch">Patch</a>    </td>
+                  <td> N/A </td>
+              </tr>
+
+                  <tr>
+              <th scope="row">23</th>
+           <td>Libsndfile</td>
+                <td>Buffer Overflow</td>
+                  <td><a href="https://github.com/erikd/libsndfile/commit/fd0484aba8e51d16af1e3a880f9b8b857b385eb3">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/23.patch">Patch</a>    </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/f1x/23/patch">Patch</a>    </td>
+                  <td> N/A </td>
+              </tr>
+
+                  <tr>
+              <th scope="row">24</th>
+           <td>LibZIP</td>
+                <td>Buffer Overflow</td>
+                  <td><a href="https://github.com/nih-at/libzip/commit/9b46957ec98d85a572e9ef98301247f39338a3b5">Patch</a>  </td>
+                  <td><a href="https://github.com/rshariffdeen/PatchWeave/blob/master/experiment/patchweave/24.patch">Patch</a>    </td>
+                  <td> N/A </td>
+                  <td> N/A </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Plugin JavaScript -->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for this template -->
+  <script src="js/resume.min.js"></script>
+
+</body>
+
+
+</html>
